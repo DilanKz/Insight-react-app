@@ -1,44 +1,67 @@
-import {Component} from "react";
-import logo from '../../../images/icon.png'
+import {Component, useState} from "react";
 import {Link} from "react-router-dom";
 
-export class Navbar extends Component {
-    render() {
-        return (
-            <div className="p-2 bg-[#444544] flex justify-between">
 
-                <Link to="/">
-                    <div className="flex">
-                        <h1 className="text-1xl text-secondary">
-                            Organic Shop</h1>
-                        <img className="h-5 w-5 ml-1 pt-1" src={logo}
-                             alt=""/>
-                    </div>
-                </Link>
+export const Navbar = () => {
 
-                <ul className="list-none flex mt-1">
-                    <li className="mr-2 text-[11px] text-[#e6f0e6] hover:text-green-400">
-                        <Link to="/">Home</Link>
+    let [open,setOpen]=useState(false)
+
+    return (
+        <div className="w-full fixed top-0 left-0 backdrop-blur">
+
+            <div className="md:flex justify-between items-center py-4">
+
+                <div className="ml-7 font-light text-2xl cursor-pointer flex item-center">
+
+                    <h1 className="text-2xl">
+
+                        <Link className="" to="/">Quick-Bite</Link>
+
+                    </h1>
+
+                </div>
+
+                <div onClick={()=>setOpen(!open)} className="absolute text-3xl right-8 top-4
+                    cursor-pointer md:hidden">
+                    {open ? 'M':'C'}
+                </div>
+
+                <ul onClick={()=>setOpen(!open)} className={"absolute md:static md:flex item-center md:pb-0" +
+                    " left-0 w-full md:w-auto transition-all duration-300 ease-in" +
+                    ` ${open ? 'top-15':'top-[-490px]' } `}>
+
+                    <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
+                        <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
+                            hover:border-b-4 border-amber-400"
+                              to="/">Home</Link>
                     </li>
-                    <li className="mr-2 text-[11px] text-[#e6f0e6] hover:text-green-400">
-                        <Link to="/contact">Contact</Link>
+                    <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
+                        <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
+                            hover:border-b-4 border-amber-400"
+                              to="/about">About</Link>
                     </li>
-                    <li className="mr-2 text-[11px] text-[#e6f0e6] hover:text-green-400">
-                        <Link to="/about">About</Link>
+                    <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
+                        <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
+                            hover:border-b-4 border-amber-400"
+                              to="/menu">Menu</Link>
                     </li>
+                    <li className="md:mr-32 md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
+                        <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
+                            hover:border-b-4 border-amber-400"
+                              to="/contact">Contact</Link>
+                    </li>
+
+                    <button className="md:pb-1 mb-2 bg-amber-400 px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-3">
+                        Sign In
+
+                    </button>
+
                 </ul>
 
-                <button className="text-[8px] text-[#e6f0e6]
-                                   bg-green-400 pl-3 pr-3
-                                   hover:text-tertiary"
-                        onClick={this.onButtonClick}>
-                    Sign In
-                </button>
-            </div>
-        );
-    }
 
-    private onButtonClick = () => {
-        alert("Button Clicked!")
-    }
+            </div>
+
+        </div>
+    );
+
 }
