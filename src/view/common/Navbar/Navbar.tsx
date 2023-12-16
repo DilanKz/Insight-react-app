@@ -7,7 +7,7 @@ export const Navbar = () => {
     let [open,setOpen]=useState(false)
 
     return (
-        <div className="w-full fixed top-0 left-0 backdrop-blur">
+        <div className="w-full fixed top-0 left-0 bg-white">
 
             <div className="md:flex justify-between items-center py-4">
 
@@ -27,7 +27,7 @@ export const Navbar = () => {
                 </div>
 
                 <ul onClick={()=>setOpen(!open)} className={"absolute md:static md:flex item-center md:pb-0" +
-                    " left-0 w-full md:w-auto transition-all duration-300 ease-in" +
+                    " left-0 w-full md:w-auto transition-all duration-300 ease-in backdrop-blur bg-white" +
                     ` ${open ? 'top-15':'top-[-490px]' } `}>
 
                     <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
