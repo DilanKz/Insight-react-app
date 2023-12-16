@@ -6,7 +6,7 @@ export class Menu extends Component {
             <>
                 <h1 className="text-4xl text-center
                                text-tertiary">
-                    This is Menu Component!</h1>
+                    This is Categories Component!</h1>
             </>
         );
     }
