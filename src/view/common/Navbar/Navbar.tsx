@@ -15,7 +15,7 @@ export const Navbar = () => {
 
                     <h1 className="text-2xl">
 
-                        <Link className="" to="/">Quick-Bite</Link>
+                        <Link className="font-sans" to="/">Insight</Link>
 
                     </h1>
 
@@ -32,27 +32,23 @@ export const Navbar = () => {
 
                     <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
                         <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
-                            hover:border-b-4 border-amber-400"
+                            hover:border-b-4 border-[#526D82]"
                               to="/">Home</Link>
                     </li>
                     <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
                         <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
-                            hover:border-b-4 border-amber-400"
-                              to="/about">About</Link>
-                    </li>
-                    <li className="md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
-                        <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
-                            hover:border-b-4 border-amber-400"
-                              to="/menu">Menu</Link>
+                            hover:border-b-4 border-[#526D82]"
+                              to="/contact">Blogs</Link>
                     </li>
                     <li className="md:mr-32 md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
                         <Link className="text-gray-800 hover:text-gray-500 duration-75 pb-1
-                            hover:border-b-4 border-amber-400"
-                              to="/contact">Contact</Link>
+                            hover:border-b-4 border-[#526D82]"
+                              to="/menu">Categories</Link>
                     </li>
 
-                    <button className="md:pb-1 mb-2 bg-amber-400 px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-3">
-                        Sign In
+                    <button className="md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-3">
+
+                        <Link className="" to="/sign">Get Started</Link>
 
                     </button>
 
