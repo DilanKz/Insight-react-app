@@ -14,7 +14,7 @@ export class Footer extends Component {
 
                 <Link to="/">
                     <div className="flex">
-                        <h1 className="text-1xl text-yellow-700">Quick-bite</h1>
+                        <h1 className="text-1xl text-white">Quick-bite</h1>
                     </div>
                 </Link>
             </div>
