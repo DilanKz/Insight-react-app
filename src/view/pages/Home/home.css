@@ -1,0 +1,4 @@
+/* Width and color of the scrollbar track */
+.no-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
