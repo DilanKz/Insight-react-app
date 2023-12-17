@@ -1,5 +1,5 @@
 import {Component} from "react";
-import './home.css'
+import './home.css';
 
 
 export class Home extends Component {
@@ -8,7 +8,6 @@ export class Home extends Component {
         return (
 
             <div>
-
                 <div className="h-full w-screen px-10 py-2">
                     <h1 className="text-[#27374D] xl:text-[10rem] lg:text-9xl md:text-9xl
                 sm:text-8xl md:pt-16 pt-16 text-7xl pl-0">
@@ -37,42 +36,207 @@ export class Home extends Component {
                         </p>
                     </div>
 
+                    <hr className=" mt-28"/>
                 </div>
 
-                <div
-                    className="relative mt-[40px] w-screen min-h-[401px] bg-amber-400 overflow-x-hidden overflow-y-hidden">
+                <div className="relative w-screen min-h-[401px] overflow-x-hidden overflow-y-hidden">
 
-                    <div className="w-full flex justify-between px-4 pt-2">
-                        <div className="w-fit">
-                            <h3 className="text-[#27374D] font-light text-2xl">Start With Our
-                                <span className="text-black font-bold"> latest Articles</span>
-                            </h3>
+                    <div className="w-full flex justify-between pt-2">
+                        <div className="w-[500px]">
+                            <h1 className="pl-10 text-[#27374D] font-light text-5xl">Start With Our
+                                <span className="text-black font-bold"> famous Articles</span>
+                            </h1>
                         </div>
 
-                        <div className="w-fit">
-                            <button className="text-black px-3">L-----</button>
-                            <button className="text-black px-3">-----R</button>
+                        <div className="w-[100px]">
+                            <span className="hover:underline hover:cursor-pointer">See more</span>
                         </div>
                     </div>
 
-                    <div className="ml-5 w-screen h-[500px] overflow-x-auto overflow-y-hidden no-scroll-bar">
+                    <div className="ml-5 w-[95vw] h-fit overflow-x-auto overflow-y-hidden no-scroll-bar">
 
                         <div className="mt-[30px] w-screen h-full">
                             <div className="flex gap-x-12">
-                                <div className="min-w-[330px] h-[450px] bg-gray-300 border p-4">
-                                    Content 1
+
+                                <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                    <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                        <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                        </div>
+                                    </div>
+                                    <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                        <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                    </div>
+                                    <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                        <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired
+                                            today in
+                                            RAW while crying</h3>
+
+                                    </div>
+
                                 </div>
-                                <div className="min-w-[330px] h-[450px] bg-gray-300 border p-4">
-                                    Content 1
+                                <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                    <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                        <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                        </div>
+                                    </div>
+                                    <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                        <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                    </div>
+                                    <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                        <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired
+                                            today in
+                                            RAW while crying</h3>
+
+                                    </div>
+
                                 </div>
-                                <div className="min-w-[330px] h-[450px] bg-gray-300 border p-4">
-                                    Content 1
+                                <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                    <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                        <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                        </div>
+                                    </div>
+                                    <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                        <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                    </div>
+                                    <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                        <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired
+                                            today in
+                                            RAW while crying</h3>
+
+                                    </div>
+
                                 </div>
-                                <div className="min-w-[330px] h-[450px] bg-gray-300 border p-4">
-                                    Content 1
+                                <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                    <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                        <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                        </div>
+                                    </div>
+                                    <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                        <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                    </div>
+                                    <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                        <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired
+                                            today in
+                                            RAW while crying</h3>
+
+                                    </div>
+
                                 </div>
-                                <div className="min-w-[330px] h-[450px] bg-gray-300 border p-4">
-                                    Content 1
+                                <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                    <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                        <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                        </div>
+                                    </div>
+                                    <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                        <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                    </div>
+                                    <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                        <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired
+                                            today in
+                                            RAW while crying</h3>
+
+                                    </div>
+
+                                </div>
+                                <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                    <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                        <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                        </div>
+                                    </div>
+                                    <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                        <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                    </div>
+                                    <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                        <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired
+                                            today in
+                                            RAW while crying</h3>
+
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -80,6 +244,251 @@ export class Home extends Component {
 
 
                     </div>
+                </div>
+
+                <div className="h-full w-screen px-10 py-2">
+                    <div>
+                        <hr className=" mt-28"/>
+                        <div className="w-full flex justify-start pt-2">
+                            <div className="w-[400px]">
+                                <h1 className="text-[#27374D] font-light text-5xl">See Whats Our
+                                    <span className="text-black font-bold"> latest Articles</span>
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div
+                            className="flex flex-wrap justify-evenly items-start transition-all ease-in-out gap-5 mt-10">
+
+                            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                    </div>
+                                </div>
+                                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                    <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                </div>
+                                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                    <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired today
+                                        in
+                                        RAW while crying</h3>
+
+                                </div>
+
+                            </div>
+                            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                    </div>
+                                </div>
+                                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                    <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                </div>
+                                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                    <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired today
+                                        in
+                                        RAW while crying</h3>
+
+                                </div>
+
+                            </div>
+                            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                    </div>
+                                </div>
+                                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                    <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                </div>
+                                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                    <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired today
+                                        in
+                                        RAW while crying</h3>
+
+                                </div>
+
+                            </div>
+                            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                    </div>
+                                </div>
+                                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                    <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                </div>
+                                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                    <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired today
+                                        in
+                                        RAW while crying</h3>
+
+                                </div>
+
+                            </div>
+                            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                    </div>
+                                </div>
+                                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                    <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                </div>
+                                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                    <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired today
+                                        in
+                                        RAW while crying</h3>
+
+                                </div>
+
+                            </div>
+                            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                                <div className="w-[330px] h-[400px] rounded-2xl">
+
+                                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                                    </div>
+                                </div>
+                                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+
+                                <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Sport
+                                    </span>
+
+                                    <span className="bg-gray-200 px-2 py-0.5 h-[1.4rem]
+                                    rounded-full font-light">
+                                        Wrestling
+                                    </span>
+
+                                </div>
+                                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+
+                                    <h3 className="text-2xl cursor-pointer hover:underline">Roman reigns retired today
+                                        in
+                                        RAW while crying</h3>
+
+                                </div>
+
+                            </div>
+
+                            <div className="w-full flex justify-center">
+                                <button className="bg-blue-950 text-white text-2xl px-2 py-0.5 rounded-xl">Load more
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <hr className=" mt-28"/>
+                        <div className="w-full flex justify-between pt-2">
+                            <div className="w-[400px]">
+                                <h1 className="text-[#27374D] font-light text-5xl">See who's Our
+                                    <span className="text-black font-bold"> famous Authors</span>
+                                </h1>
+                            </div>
+
+                            <div className="w-[100px]">
+                                <span className="hover:underline hover:cursor-pointer">See more</span>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap justify-evenly mt-10 ms-2 gap-8">
+
+                            <div className="w-[200px] h-[250px] bg-gray-200 rounded-2xl relative transform
+                            hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                            </div>
+                            <div className="w-[200px] h-[250px] bg-gray-200 rounded-2xl relative transform
+                            hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                            </div>
+                            <div className="w-[200px] h-[250px] bg-gray-200 rounded-2xl relative transform
+                            hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                            </div>
+                            <div className="w-[200px] h-[250px] bg-gray-200 rounded-2xl relative transform
+                            hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+
+                            </div>
+
+                        </div>
+
+                        <hr className=" mt-28"/>
+
+                    </div>
+
                 </div>
             </div>
 
