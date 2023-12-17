@@ -1,4 +1,20 @@
-/* Width and color of the scrollbar track */
 .no-scroll-bar::-webkit-scrollbar {
-    display: none;
+    height: 8px;
+}
+
+.no-scroll-bar::-webkit-scrollbar-thumb:hover {
+    background-color: #D2D2D2FF;
+}
+
+.no-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: #d2d2d2;
+    border-radius: 12px;
+}
+
+.no-scroll-bar::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+.no-scroll-bar::-webkit-scrollbar-corner {
+    background-color: #f1f1f1;
 }
