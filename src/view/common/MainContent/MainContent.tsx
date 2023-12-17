@@ -7,8 +7,7 @@ import {Menu} from "../../pages/Menu/Menu";
 export class MainContent extends Component {
     render() {
         return (
-            <div className="min-h-[94vh] flex items-center justify-center
-             mx-auto bg-white overflow-x-hidden">
+            <div className="min-h-[94vh] overflow-x-hidden">
 
                 <Routes>
                     <Route path="/" Component={Home}></Route>
