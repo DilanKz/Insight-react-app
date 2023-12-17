@@ -23,7 +23,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
         const { open } = this.state;
 
         return (
-            <div className="w-full fixed top-0 left-0 bg-white">
+            <div className="w-full fixed top-0 left-0 bg-white z-50">
                 <div className="md:flex justify-between items-center py-4">
                     <div className="ml-7 font-light text-2xl cursor-pointer flex item-center">
                         <h1 className="text-2xl">
