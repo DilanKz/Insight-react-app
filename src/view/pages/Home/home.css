@@ -3,16 +3,16 @@
 }
 
 .no-scroll-bar::-webkit-scrollbar-thumb:hover {
-    background-color: #D2D2D2FF;
+    background-color: #fff;
 }
 
 .no-scroll-bar::-webkit-scrollbar-thumb {
-    background-color: #d2d2d2;
+    background-color: #fff;
     border-radius: 12px;
 }
 
 .no-scroll-bar::-webkit-scrollbar-track {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .no-scroll-bar::-webkit-scrollbar-corner {
