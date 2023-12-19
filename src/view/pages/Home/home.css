@@ -1,5 +1,6 @@
 .no-scroll-bar::-webkit-scrollbar {
     height: 8px;
+    display: none;
 }
 
 .no-scroll-bar::-webkit-scrollbar-thumb:hover {
