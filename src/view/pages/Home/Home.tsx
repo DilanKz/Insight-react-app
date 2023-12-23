@@ -1,11 +1,36 @@
 import {Component} from "react";
 import './home.css';
 import {Article} from "../../common/Article/Article";
+import {data} from "autoprefixer";
 
 
 export class Home extends Component {
 
+    constructor(props:{}| Readonly<{}>) {
+        super(props);
+        this.state={
+            data:[]
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData =async ()=>{
+        try {
+            const response=await fetch('./product-data.json');
+            const jsonData=await response.json();
+            this.setState({data:jsonData})
+        }catch (e) {
+            console.log("error");
+        }
+    }
+
     render() {
+        //@ts-ignore
+        const {data}=this.state;
+
         return (
 
             <div>
@@ -43,7 +68,7 @@ export class Home extends Component {
                         <hr className=" mt-28"/>
                     </div>
 
-                    <div className="relative w-screen min-h-[401px] overflow-x-hidden overflow-y-hidden">
+                    <div className="relative w-screen min-h-[421px] h-max overflow-x-hidden overflow-y-hidden">
 
                         <div className="w-full flex justify-between pt-2">
                             <div className="w-[500px]">
@@ -57,17 +82,16 @@ export class Home extends Component {
                             </div>
                         </div>
 
-                        <div className="ml-5 w-[95vw] h-fit overflow-x-auto overflow-y-hidden no-scroll-bar">
+                        <div className="ml-5 w-[95vw] h-max overflow-x-auto overflow-y-hidden no-scroll-bar">
 
-                            <div className="mt-[30px] w-screen h-full">
-                                <div className="flex gap-x-12">
+                            <div className="mt-[30px] h-max w-screen">
+                                <div className="flex gap-x-12  h-max">
 
-                                    <Article/>
-                                    <Article/>
-                                    <Article/>
-                                    <Article/>
-                                    <Article/>
-                                    <Article/>
+                                    {
+                                        data.slice(0, 5).map((article:any)=>(
+                                            <Article key={article.id}  data={article}/>
+                                        ))
+                                    }
 
                                 </div>
 
@@ -92,12 +116,11 @@ export class Home extends Component {
                         <div
                             className="flex flex-wrap justify-evenly items-start transition-all ease-in-out gap-5 mt-10">
 
-                            <Article/>
-                            <Article/>
-                            <Article/>
-                            <Article/>
-                            <Article/>
-                            <Article/>
+                            {
+                                data.slice(0,9).map((article:any)=>(
+                                    <Article key={article.id}  data={article}/>
+                                ))
+                            }
 
                             <div className="w-full flex justify-center">
                                 <button className="bg-blue-950 text-white text-2xl px-2 py-0.5 rounded-xl">Load more
