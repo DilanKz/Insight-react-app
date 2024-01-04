@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './home.css';
 import {Article} from "../../common/Article/Article";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 
 export class Home extends Component {
@@ -124,11 +126,13 @@ export class Home extends Component {
                         </div>
                         <div className="relative flex items-center">
 
-                            <h3 className="cursor-pointer p-6" onClick={this.slideLeft}>L</h3>
+                            <h3 className="block cursor-pointer p-6 hidden sm:inline" onClick={this.slideLeft}>
+                                <FontAwesomeIcon icon={faChevronLeft}/>
+                            </h3>
                             <div id="slider"
                                  className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scroll-bar">
 
-                                {data.slice(0, 5).map((article: any) => (
+                            {data.slice(0, 5).map((article: any) => (
                                     <div key={article.id} className="inline-block cursor-pointer">
                                         <Article key={article.id} data={article}/>
                                     </div>
@@ -136,7 +140,9 @@ export class Home extends Component {
 
                             </div>
 
-                            <h3 className="cursor-pointer p-6" onClick={this.slideRight}>R</h3>
+                            <h3 className="block cursor-pointer p-6 hidden sm:inline" onClick={this.slideRight}>
+                                <FontAwesomeIcon icon={faChevronRight}/>
+                            </h3>
 
                         </div>
                     </div>
