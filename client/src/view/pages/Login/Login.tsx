@@ -1,17 +1,32 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import bgImage from "../../../images/bg.jpg"
+import axios from "axios";
 
-interface forgotPass{
+interface LoginStates {
     isPwClicked:boolean;
+    loginMail:string;
+    loginPass:string;
+    forgotMail:string
+    forgotOTP:string;
+    newPass:string;
 }
-export class Login extends Component<{},forgotPass> {
+export class Login extends Component<{},LoginStates> {
+
+    private api: any;
 
     constructor(props:{}) {
         super(props);
+        this.api = axios.create({baseURL: `http://localhost:4000`});
         this.state={
-            isPwClicked:true
+            isPwClicked:true,
+            loginMail: "",
+            loginPass: "",
+            forgotMail: "",
+            forgotOTP: "",
+            newPass: "",
         }
+        this.handleMessageInputOnChange = this.handleMessageInputOnChange.bind(this);
     }
 
     // Updating state to toggle isPwClicked
@@ -24,7 +39,9 @@ export class Login extends Component<{},forgotPass> {
     };
 
     render() {
+
         const {isPwClicked}=this.state
+
         return (
             <div className="relative">
                 <div className="flex h-screen w-screen">
@@ -46,13 +63,13 @@ export class Login extends Component<{},forgotPass> {
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            autoComplete="email"
-                                            required
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                        />
+                                            id="email"
+                                            name="loginMail"
+                                            type="email"
+                                            required
+                                            value={this.state.loginMail}
+                                            onChange={this.handleMessageInputOnChange}/>
                                     </div>
                                 </div>
 
@@ -71,13 +88,13 @@ export class Login extends Component<{},forgotPass> {
                                     </div>
                                     <div className="mt-2">
                                         <input
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            autoComplete="current-password"
-                                            required
                                             className="block w-full rounded-md border-0 py-1.5 outline-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                        />
+                                            id="password"
+                                            name="loginPass"
+                                            type="password"
+                                            required
+                                            value={this.state.loginPass}
+                                            onChange={this.handleMessageInputOnChange}/>
                                     </div>
                                 </div>
 
@@ -179,5 +196,47 @@ export class Login extends Component<{},forgotPass> {
                 </div>
             </div>
         );
+
+    }
+    handleMessageInputOnChange(event: { target: {value: any; name: any;} }) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+        // @ts-ignore
+        this.setState({
+            [name]: value
+        });
+    }
+
+    private onLoginBtnClick = () => {
+        try {
+            this.api.post('/users/login', {
+                mail: this.state.loginMail,
+                password: this.state.loginPass
+            }).then((res: { data: any}) => {
+                const jsonData = res.data;
+                alert(jsonData);
+            }).catch((error: any)=> {
+                console.error('Axios Error', error);
+            });
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
+    }
+    private onForgotPassBtnClick = () => {
+        try {
+            this.api.post('/users/reset', {
+                mail: this.state.forgotMail,
+                otp: this.state.forgotOTP,
+                password: this.state.newPass
+            }).then((res: { data: any}) => {
+                const jsonData = res.data;
+                alert(jsonData);
+            }).catch((error: any)=> {
+                console.error('Axios Error', error);
+            });
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
     }
 }
