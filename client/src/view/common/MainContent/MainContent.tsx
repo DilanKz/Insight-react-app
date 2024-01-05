@@ -11,7 +11,7 @@ export class MainContent extends Component {
             <div className="min-h-[94vh] overflow-x-hidden no-scroll-bar">
 
                 <Routes>
-                    <Route path="/" Component={Home}></Route>
+                    <Route path="/*" Component={Home}></Route>
                     <Route path="/menu" Component={Menu}></Route>
                     <Route path="/contact" Component={Contact}></Route>
                 </Routes>
