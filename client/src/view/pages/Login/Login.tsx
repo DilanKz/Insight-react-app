@@ -4,22 +4,23 @@ import bgImage from "../../../images/bg.jpg"
 import axios from "axios";
 
 interface LoginStates {
-    isPwClicked:boolean;
-    loginMail:string;
-    loginPass:string;
-    forgotMail:string
-    forgotOTP:string;
-    newPass:string;
+    isPwClicked: boolean;
+    loginMail: string;
+    loginPass: string;
+    forgotMail: string
+    forgotOTP: string;
+    newPass: string;
 }
-export class Login extends Component<{},LoginStates> {
+
+export class Login extends Component<{}, LoginStates> {
 
     private api: any;
 
-    constructor(props:{}) {
+    constructor(props: {}) {
         super(props);
         this.api = axios.create({baseURL: `http://localhost:4000`});
-        this.state={
-            isPwClicked:true,
+        this.state = {
+            isPwClicked: true,
             loginMail: "",
             loginPass: "",
             forgotMail: "",
@@ -40,7 +41,7 @@ export class Login extends Component<{},LoginStates> {
 
     render() {
 
-        const {isPwClicked}=this.state
+        const {isPwClicked} = this.state
 
         return (
             <div className="relative">
@@ -55,7 +56,7 @@ export class Login extends Component<{},LoginStates> {
                         </div>
 
                         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                            <form className="space-y-6" >
+                            <form className="space-y-6">
                                 <div>
                                     <label htmlFor="email"
                                            className="block text-sm font-medium leading-6 text-gray-900">
@@ -102,7 +103,7 @@ export class Login extends Component<{},LoginStates> {
                                     <button
                                         type="button"
                                         className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    >
+                                        onClick={this.onLoginBtnClick}>
                                         Sign in
                                     </button>
                                 </div>
@@ -122,7 +123,8 @@ export class Login extends Component<{},LoginStates> {
                     </div>
                 </div>
 
-                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center ${isPwClicked ? "hidden":"flex"}`}>
+                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center 
+                ${isPwClicked ? "hidden" : "flex"}`}>
 
                     <div className=" backdrop-blur-sm w-full h-full absolute" onClick={this.togglePwClicked}></div>
 
@@ -137,12 +139,11 @@ export class Login extends Component<{},LoginStates> {
                                 </label>
                                 <div className="mt-2">
                                     <input
-                                        id="txtEmail"
-                                        name="email"
-                                        type="email"
-                                        required
                                         className="pl-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm outline-0 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset  sm:text-sm sm:leading-6"
-                                    />
+                                        id="txtEmail" name="forgotMail"
+                                        type="email" required
+                                        value={this.state.forgotMail}
+                                        onChange={this.handleMessageInputOnChange}/>
                                 </div>
                             </div>
 
@@ -155,12 +156,11 @@ export class Login extends Component<{},LoginStates> {
                                 </div>
                                 <div className="mt-2">
                                     <input
-                                        id="txtOTP"
-                                        name="OTP"
-                                        type="text"
-                                        required
                                         className="pl-4 block w-full outline-0 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset  sm:text-sm sm:leading-6"
-                                    />
+                                        id="txtOTP" name="forgotOTP"
+                                        type="text" required
+                                        value={this.state.forgotOTP}
+                                        onChange={this.handleMessageInputOnChange}/>
                                 </div>
                             </div>
 
@@ -173,20 +173,19 @@ export class Login extends Component<{},LoginStates> {
                                 </div>
                                 <div className="mt-2">
                                     <input
-                                        id="txtPassword"
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        required
                                         className="pl-4 block w-full outline-0 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                                    />
+                                        id="txtPassword" name="password"
+                                        type="password" required
+                                        value={this.state.forgotOTP}
+                                        onChange={this.handleMessageInputOnChange}/>
                                 </div>
                             </div>
 
                             <div>
                                 <button
                                     type="button"
-                                    className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    onClick={this.onForgotPassBtnClick}>
                                     Sign in
                                 </button>
                             </div>
@@ -198,7 +197,8 @@ export class Login extends Component<{},LoginStates> {
         );
 
     }
-    handleMessageInputOnChange(event: { target: {value: any; name: any;} }) {
+
+    handleMessageInputOnChange(event: { target: { value: any; name: any; } }) {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -213,10 +213,10 @@ export class Login extends Component<{},LoginStates> {
             this.api.post('/users/login', {
                 mail: this.state.loginMail,
                 password: this.state.loginPass
-            }).then((res: { data: any}) => {
+            }).then((res: { data: any }) => {
                 const jsonData = res.data;
                 alert(jsonData);
-            }).catch((error: any)=> {
+            }).catch((error: any) => {
                 console.error('Axios Error', error);
             });
         } catch (error) {
@@ -229,10 +229,10 @@ export class Login extends Component<{},LoginStates> {
                 mail: this.state.forgotMail,
                 otp: this.state.forgotOTP,
                 password: this.state.newPass
-            }).then((res: { data: any}) => {
+            }).then((res: { data: any }) => {
                 const jsonData = res.data;
                 alert(jsonData);
-            }).catch((error: any)=> {
+            }).catch((error: any) => {
                 console.error('Axios Error', error);
             });
         } catch (error) {
