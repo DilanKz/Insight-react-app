@@ -3,12 +3,14 @@ import './home.css';
 import {Article} from "../../common/Article/Article";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
-
+import axios from "axios";
 
 export class Home extends Component {
     private slider:any;
+    private api;
     constructor(props: {} | Readonly<{}>) {
         super(props);
+        this.api=axios.create({baseURL:`http://localhost:4000`})
         this.state = {
             data: []
         }
@@ -21,9 +23,17 @@ export class Home extends Component {
 
     fetchData = async () => {
         try {
-            const response = await fetch('./product-data.json');
-            const jsonData = await response.json();
-            this.setState({data: jsonData})
+            try {
+                this.api.get('/articles/all')
+                    .then((res: { data: any }) => {
+                        const jsonData = res.data;
+                        this.setState({data: jsonData});
+                    }).catch((error: any)=> {
+                    console.error('Axios Error:', error)
+                });
+            } catch (error) {
+                console.log('Error fetching data: ', error)
+            }
         } catch (e) {
             console.log("error");
         }
