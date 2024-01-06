@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 let {articles}=require('../constants/const')
-
+const articleController=require('../controller/ArticleController')
 /* GET all articles listing. */
-router.get('/all', function(req, res, next) {
-    res.send(articles);
-});
+router.get('/all', articleController.getAllArticles);
 
 module.exports = router;
