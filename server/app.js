@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var articleRouter = require('./routes/article');
 
+const mongoose = require('mongoose');
+
 var app = express();
 
 app.use(cors())
@@ -21,6 +23,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+require('dotenv').config();
+
+
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+  console.log("Connected to mongo")
+}).catch((reason)=>{
+  console.error("Error connecting to mongo "+reason)
+});
 
 
 app.use('/', indexRouter);
