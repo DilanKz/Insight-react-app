@@ -114,8 +114,8 @@ export class Login extends Component<{}, LoginStates> {
                             <p className="mt-4 text-center text-sm text-gray-500 pb-3">
                                 Not a member?{' '}
                                 <Link className="font-semibold leading-6 text-secondary hover:text-secondary"
-                                      to="/sign-up">
-                                    Sign in
+                                      to="/signUp">
+                                    Sign Up
                                 </Link>
                             </p>
                         </div>
