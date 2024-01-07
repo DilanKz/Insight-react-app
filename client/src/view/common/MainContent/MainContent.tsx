@@ -13,7 +13,7 @@ export class MainContent extends Component {
                 <Routes>
                     <Route path="/*" Component={Home}></Route>
                     <Route path="/menu" Component={Menu}></Route>
-                    <Route path="/contact" Component={Contact}></Route>
+                    <Route path="/blog" Component={Contact}></Route>
                 </Routes>
             </div>
         );
