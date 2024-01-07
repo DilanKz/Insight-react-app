@@ -52,7 +52,7 @@ export class SignUp extends Component {
                                     <div className="mt-2">
                                         <input
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                            id="email" name="regName"
+                                            id="name" name="regName"
                                             type="text" placeholder="Name"
                                             required/>
                                     </div>
@@ -74,7 +74,7 @@ export class SignUp extends Component {
 
                                         <input
                                             className="block w-full rounded-md border-0 py-1.5 outline-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                            id="password" name="regPassConfirm"
+                                            id="confirmPassword" name="regPassConfirm"
                                             type="password" placeholder="confirm password"
                                             required/>
 
