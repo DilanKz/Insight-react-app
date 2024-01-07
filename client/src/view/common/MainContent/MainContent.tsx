@@ -1,9 +1,8 @@
 import {Component} from "react";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "../../pages/Home/Home";
-import {Contact} from "../../pages/Contact/Contact";
+import {Post} from "../../pages/Contact/Post";
 import {Menu} from "../../pages/Menu/Menu";
-import {SignUp} from "../../pages/SignIn/SignUp";
 import './mainContent.css';
 
 export class MainContent extends Component {
@@ -13,7 +12,7 @@ export class MainContent extends Component {
                 <Routes>
                     <Route path="/*" Component={Home}></Route>
                     <Route path="/menu" Component={Menu}></Route>
-                    <Route path="/blog" Component={Contact}></Route>
+                    <Route path="/blog" Component={Post}></Route>
                 </Routes>
             </div>
         );

@@ -1,6 +1,6 @@
 import {Component} from "react";
 
-export class Contact extends Component {
+export class Post extends Component {
     render() {
         return (
             <div className="w-screen mt-[6rem] pl-10">
