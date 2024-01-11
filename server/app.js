@@ -19,10 +19,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // Increase payload size limit for JSON
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '20mb' }));
 
 // Increase payload size limit for URL-encoded data
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
 app.use(logger('dev'));
 app.use(express.json());
