@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom';
 interface SignUpStates {
     email: string;
     password: string;
@@ -15,7 +15,7 @@ interface SignUpStates {
 export class SignUp extends Component<{}, SignUpStates> {
 
     private api:any;
-
+    private navigate:any;
     constructor(props: {}) {
         super(props);
         this.api = axios.create({baseURL: `http://localhost:4000`});
@@ -180,6 +180,11 @@ export class SignUp extends Component<{}, SignUpStates> {
                     if (jsonData==null){
                         alert("You dont have an account")
                     }else {
+                        localStorage.setItem('insightUser', JSON.stringify(jsonData));
+                        this.navigate=useNavigate();
+
+                        this.navigate('/home');
+
                         alert(`welcome ${jsonData.name}`);
                     }
                 }).catch((error: any) => {
