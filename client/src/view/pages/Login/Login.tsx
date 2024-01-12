@@ -15,7 +15,6 @@ interface LoginStates {
 }
 
 export class Login extends Component<{}, LoginStates> {
-
     private api: any;
 
     constructor(props: {}) {
@@ -30,6 +29,10 @@ export class Login extends Component<{}, LoginStates> {
             newPass: "",
         }
         this.handleLoginInputOnChange = this.handleLoginInputOnChange.bind(this);
+    }
+
+    componentDidMount() {
+        console.log(this.props);
     }
 
     // Updating state to toggle isPwClicked
@@ -125,7 +128,7 @@ export class Login extends Component<{}, LoginStates> {
                 </div>
 
                 <Link to={"/"} className="absolute top-0 left-0 ml-4 mt-2 text-[1em] text-tertiary rounded-full">
-                    <FontAwesomeIcon icon={faHouse} />
+                    <FontAwesomeIcon icon={faHouse}/>
                 </Link>
 
                 <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center 
@@ -133,7 +136,8 @@ export class Login extends Component<{}, LoginStates> {
 
                     <div className=" backdrop-blur-sm w-full h-full absolute" onClick={this.togglePwClicked}></div>
 
-                    <div className="xl:w-1/4 lg:w-1/3 md:w-1/3 h-2/3 sm:w-1/2 bg-white rounded-2xl shadow-2xl px-8 z-10">
+                    <div
+                        className="xl:w-1/4 lg:w-1/3 md:w-1/3 h-2/3 sm:w-1/2 bg-white rounded-2xl shadow-2xl px-8 z-10">
                         <h2 className="mt-10 mb-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                             Reset Password
                         </h2>
@@ -220,18 +224,21 @@ export class Login extends Component<{}, LoginStates> {
                 password: this.state.loginPass
             }).then((res: { data: any }) => {
                 const jsonData = res.data;
-                if (jsonData==null){
+                if (jsonData == null) {
                     alert("You dont have an account")
-                }else {
-                    alert(`welcome ${jsonData.name}`);
+                } else {
+                    localStorage.setItem('insightUser', JSON.stringify(jsonData));
+                    window.location.href = '/';
+
                 }
             }).catch((error: any) => {
                 console.log('Axios Error', error);
-                alert(error.response.data.message)
+                alert(error.response.data.message);
             });
         } catch (error) {
             console.error('Error submitting data:', error);
         }
+
     }
     private onForgotPassBtnClick = () => {
         try {
