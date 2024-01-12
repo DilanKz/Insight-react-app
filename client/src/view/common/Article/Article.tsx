@@ -1,4 +1,5 @@
-import {Component} from "react";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 interface ArticleProps {
     data: any;
@@ -35,12 +36,23 @@ export class Article extends Component<ArticleProps> {
                 </div>
                 <div className="w-[330px] h-16 mt-3 flex flex-wrap">
 
-                    <h3 className="text-2xl cursor-pointer hover:underline overflow-hidden whitespace-normal">
-                        {data.title}
-                    </h3>
+                    <Link to="/Article" onClick={() => this.setArticleStaticValue(data)}>
+
+                        <h3 className="text-2xl cursor-pointer hover:underline overflow-hidden whitespace-normal">
+                            {data.title}
+                        </h3>
+
+                    </Link>
                 </div>
 
             </div>
         );
+    }
+
+    private setArticleStaticValue(data: any) {
+        //Get the current article and store it in browser local storage
+        const jsonData = JSON.stringify(data);
+        localStorage.setItem('articleData', jsonData);
+        console.log(JSON.parse(jsonData));
     }
 }
