@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DefaultLayout} from "./view/common/DefaultLayout/DefaultLayout";
 import {Login} from "./view/pages/Login/Login";
-import {SignUp} from "./view/pages/SignIn/SignUp";
+import {SignUp} from "./view/pages/SignUp/SignUp";
 
 function App() {
   return (
