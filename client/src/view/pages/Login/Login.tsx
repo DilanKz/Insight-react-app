@@ -29,7 +29,7 @@ export class Login extends Component<{}, LoginStates> {
             forgotOTP: "",
             newPass: "",
         }
-        this.handleMessageInputOnChange = this.handleMessageInputOnChange.bind(this);
+        this.handleLoginInputOnChange = this.handleLoginInputOnChange.bind(this);
     }
 
     // Updating state to toggle isPwClicked
@@ -71,7 +71,7 @@ export class Login extends Component<{}, LoginStates> {
                                             type="email" placeholder="email"
                                             required
                                             value={this.state.loginMail}
-                                            onChange={this.handleMessageInputOnChange}/>
+                                            onChange={this.handleLoginInputOnChange}/>
                                     </div>
                                 </div>
 
@@ -84,7 +84,7 @@ export class Login extends Component<{}, LoginStates> {
                                             type="password" placeholder="password"
                                             required
                                             value={this.state.loginPass}
-                                            onChange={this.handleMessageInputOnChange}/>
+                                            onChange={this.handleLoginInputOnChange}/>
                                     </div>
                                     <div className="flex items-center justify-end">
                                         {/*<label htmlFor="password"
@@ -148,7 +148,7 @@ export class Login extends Component<{}, LoginStates> {
                                         id="txtEmail" name="forgotMail"
                                         type="email" required
                                         value={this.state.forgotMail}
-                                        onChange={this.handleMessageInputOnChange}/>
+                                        onChange={this.handleLoginInputOnChange}/>
                                 </div>
                             </div>
 
@@ -165,7 +165,7 @@ export class Login extends Component<{}, LoginStates> {
                                         id="txtOTP" name="forgotOTP"
                                         type="text" required
                                         value={this.state.forgotOTP}
-                                        onChange={this.handleMessageInputOnChange}/>
+                                        onChange={this.handleLoginInputOnChange}/>
                                 </div>
                             </div>
 
@@ -182,7 +182,7 @@ export class Login extends Component<{}, LoginStates> {
                                         id="txtPassword" name="newPass"
                                         type="password" required
                                         value={this.state.newPass}
-                                        onChange={this.handleMessageInputOnChange}/>
+                                        onChange={this.handleLoginInputOnChange}/>
                                 </div>
                             </div>
 
@@ -203,7 +203,7 @@ export class Login extends Component<{}, LoginStates> {
 
     }
 
-    handleMessageInputOnChange(event: { target: { value: any; name: any; } }) {
+    handleLoginInputOnChange(event: { target: { value: any; name: any; } }) {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -226,7 +226,8 @@ export class Login extends Component<{}, LoginStates> {
                     alert(`welcome ${jsonData.name}`);
                 }
             }).catch((error: any) => {
-                console.error('Axios Error', error);
+                console.log('Axios Error', error);
+                alert(error.response.data.message)
             });
         } catch (error) {
             console.error('Error submitting data:', error);
@@ -242,7 +243,7 @@ export class Login extends Component<{}, LoginStates> {
                 const jsonData = res.data;
                 alert(jsonData);
             }).catch((error: any) => {
-                console.error('Axios Error', error);
+                console.log('Axios Error', error.response.data.message);
             });
         } catch (error) {
             console.error('Error submitting data:', error);
