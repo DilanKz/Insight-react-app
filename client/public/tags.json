@@ -1,0 +1,83 @@
+[
+    {
+      "_id": "1",
+      "name": "Food",
+      "subtags": [
+        "Cultural foods",
+        "Western foods",
+        "Vegetarian cuisine",
+        "Famous dishes",
+        "Popular desserts"
+      ]
+    },
+  {
+    "_id": "2",
+    "name": "Travel",
+    "subtags": [
+      "Adventure",
+      "Cultural exploration",
+      "Beach destinations",
+      "Famous landmarks",
+      "Off-the-beaten-path"
+    ]
+  },
+  {
+    "_id": "3",
+    "name": "Sport",
+    "subtags": [
+      "Football",
+      "American football",
+      "Wrestling",
+      "Formula",
+      "Tennis",
+      "Badminton",
+      "Cricket",
+      "Swimming",
+      "Popular sports events",
+      "Athlete spotlights"
+    ]
+  },
+  {
+    "_id": "4",
+    "name": "Technology",
+    "subtags": [
+      "Programming",
+      "Artificial intelligence",
+      "Cybersecurity",
+      "Innovative tech",
+      "Future tech trends"
+    ]
+  },
+  {
+    "_id": "5",
+    "name": "Music",
+    "subtags": [
+      "Rock",
+      "Hip-hop",
+      "Classical",
+      "Chart-topping hits",
+      "Up-and-coming artists"
+    ]
+  },
+  {
+    "_id": "6",
+    "name": "Science",
+    "subtags": [
+      "Astronomy",
+      "Biology",
+      "Physics",
+      "Groundbreaking discoveries",
+      "Scientific breakthroughs"
+    ]
+  },
+  {
+    "_id": "8",
+    "name": "Programming",
+    "subtags": [
+      "Web development",
+      "Data science",
+      "Mobile app development",
+      "Coding best practices"
+    ]
+  }
+]
