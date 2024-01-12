@@ -3,8 +3,31 @@ import bgImage from "../../../images/bg.jpg";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
-export class SignUp extends Component {
+interface SignUpStates {
+    email: string;
+    password: string;
+    name: string;
+    confirmPassword: string
+}
+
+export class SignUp extends Component<{}, SignUpStates> {
+
+    private api:any;
+
+    constructor(props: {}) {
+        super(props);
+        this.api = axios.create({baseURL: `http://localhost:4000`});
+        this.state = {
+            email: "",
+            password: "",
+            name: "",
+            confirmPassword: ""
+        }
+        this.handleRegisterInputOnChange = this.handleRegisterInputOnChange.bind(this);
+    }
+
     render() {
         return (
 
@@ -36,8 +59,10 @@ export class SignUp extends Component {
                                     <div className="mt-2">
                                         <input
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                            id="email" name="regEmail"
+                                            id="email" name="email"
                                             type="email" placeholder="Email"
+                                            value={this.state.email}
+                                            onChange={this.handleRegisterInputOnChange}
                                             required/>
                                     </div>
                                 </div>
@@ -52,8 +77,10 @@ export class SignUp extends Component {
                                     <div className="mt-2">
                                         <input
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 outline-0 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                            id="name" name="regName"
+                                            id="name" name="name"
                                             type="text" placeholder="Name"
+                                            value={this.state.name}
+                                            onChange={this.handleRegisterInputOnChange}
                                             required/>
                                     </div>
                                 </div>
@@ -68,14 +95,18 @@ export class SignUp extends Component {
                                     <div className="mt-2 flex row gap-x-2">
                                         <input
                                             className="block w-full rounded-md border-0 py-1.5 outline-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                            id="password" name="regPass"
+                                            id="password" name="password"
                                             type="password" placeholder="password"
+                                            value={this.state.password}
+                                            onChange={this.handleRegisterInputOnChange}
                                             required/>
 
                                         <input
                                             className="block w-full rounded-md border-0 py-1.5 outline-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset pl-4 sm:text-sm sm:leading-6"
-                                            id="confirmPassword" name="regPassConfirm"
+                                            id="confirmPassword" name="confirmPassword"
                                             type="password" placeholder="confirm password"
+                                            value={this.state.confirmPassword}
+                                            onChange={this.handleRegisterInputOnChange}
                                             required/>
 
                                     </div>
@@ -84,8 +115,10 @@ export class SignUp extends Component {
                                 <div>
                                     <button
                                         type="button"
-                                        className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
-                                    Register
+                                        className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                                        onClick={this.btnRegisterOnClick}
+                                    >
+                                        Register
                                     </button>
                                 </div>
                             </form>
@@ -103,10 +136,60 @@ export class SignUp extends Component {
                 </div>
 
                 <Link to={"/"} className="absolute top-0 right-0 mr-4 mt-2 text-[1em] text-tertiary rounded-full">
-                    <FontAwesomeIcon icon={faHouse} />
+                    <FontAwesomeIcon icon={faHouse}/>
                 </Link>
 
             </div>
         );
+    }
+
+    handleRegisterInputOnChange(event: { target: { value: any; name: any; } }) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+
+        /*const regexPatterns = {
+            email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            username: /^[a-zA-Z0-9]+$/,
+            password: /^.{8,}$/, // Minimum 8 characters
+        };
+
+        if (regexPatterns[name].test(value)) {
+            this.setState({
+                [name]: value
+            });
+        } else {
+            console.error(`Invalid ${name} input.`);
+        }*/
+
+        // @ts-ignore
+        this.setState({
+            [name]: value
+        });
+    }
+
+    btnRegisterOnClick = () => {
+        if (this.state.password===this.state.confirmPassword){
+            try {
+                this.api.post('/users/register', {
+                    email: this.state.email,
+                    name: this.state.name,
+                    password: this.state.password
+                }).then((res: { data: any }) => {
+                    const jsonData = res.data;
+                    if (jsonData==null){
+                        alert("You dont have an account")
+                    }else {
+                        alert(`welcome ${jsonData.name}`);
+                    }
+                }).catch((error: any) => {
+                    console.error('Axios Error', error);
+                });
+            } catch (error) {
+                console.error('Error submitting data:', error);
+            }
+        }else {
+            alert("password doesn't match");
+        }
     }
 }
