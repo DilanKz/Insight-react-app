@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import bgImage from "../../../images/bg.jpg";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -10,6 +10,7 @@ interface SignUpStates {
     password: string;
     name: string;
     confirmPassword: string
+    navigateToHome: boolean
 }
 
 export class SignUp extends Component<{}, SignUpStates> {
@@ -23,7 +24,9 @@ export class SignUp extends Component<{}, SignUpStates> {
             email: "",
             password: "",
             name: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            navigateToHome: false
+
         }
         this.handleRegisterInputOnChange = this.handleRegisterInputOnChange.bind(this);
     }
@@ -120,6 +123,9 @@ export class SignUp extends Component<{}, SignUpStates> {
                                     >
                                         Register
                                     </button>
+                                    {
+                                        this.state.navigateToHome && <Navigate to='/' replace={true}/>
+                                    }
                                 </div>
                             </form>
 
@@ -181,11 +187,10 @@ export class SignUp extends Component<{}, SignUpStates> {
                         alert("You dont have an account")
                     }else {
                         localStorage.setItem('insightUser', JSON.stringify(jsonData));
-                        this.navigate=useNavigate();
-
-                        this.navigate('/home');
-
-                        alert(`welcome ${jsonData.name}`);
+                        // window.location.href = '/';
+                        this.setState({
+                            navigateToHome: true,
+                        });
                     }
                 }).catch((error: any) => {
                     console.error('Axios Error', error);
