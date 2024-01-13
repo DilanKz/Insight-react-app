@@ -7,7 +7,8 @@ const articleController={
     },
 
     postArticle:function(req, res, next) {
-        console.log(req.body)
+        console.log(req.body);
+        res.send("Article has saved successfully");
     }
 }
 
