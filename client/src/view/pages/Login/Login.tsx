@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import bgImage from "../../../images/bg.jpg"
 import axios from "axios";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,7 @@ interface LoginStates {
     forgotMail: string
     forgotOTP: string;
     newPass: string;
+    navigateToHome:boolean
 }
 
 export class Login extends Component<{}, LoginStates> {
@@ -27,12 +28,9 @@ export class Login extends Component<{}, LoginStates> {
             forgotMail: "",
             forgotOTP: "",
             newPass: "",
+            navigateToHome: false,
         }
         this.handleLoginInputOnChange = this.handleLoginInputOnChange.bind(this);
-    }
-
-    componentDidMount() {
-        console.log(this.props);
     }
 
     // Updating state to toggle isPwClicked
@@ -110,6 +108,9 @@ export class Login extends Component<{}, LoginStates> {
                                         onClick={this.onLoginBtnClick}>
                                         Sign in
                                     </button>
+                                    {
+                                        this.state.navigateToHome && <Navigate to='/' replace={true}/>
+                                    }
                                 </div>
                             </form>
 
@@ -131,8 +132,7 @@ export class Login extends Component<{}, LoginStates> {
                     <FontAwesomeIcon icon={faHouse}/>
                 </Link>
 
-                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center 
-                ${isPwClicked ? "hidden" : "flex"}`}>
+                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center ${isPwClicked ? "hidden" : "flex"}`}>
 
                     <div className=" backdrop-blur-sm w-full h-full absolute" onClick={this.togglePwClicked}></div>
 
@@ -228,8 +228,10 @@ export class Login extends Component<{}, LoginStates> {
                     alert("You dont have an account")
                 } else {
                     localStorage.setItem('insightUser', JSON.stringify(jsonData));
-                    window.location.href = '/';
-
+                    // window.location.href = '/';
+                    this.setState({
+                        navigateToHome: true,
+                    });
                 }
             }).catch((error: any) => {
                 console.log('Axios Error', error);
