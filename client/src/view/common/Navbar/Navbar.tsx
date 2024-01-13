@@ -1,20 +1,30 @@
 import React, { Component, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faBars, faXmark,faUser} from "@fortawesome/free-solid-svg-icons";
 
 interface NavbarProps {}
 
 interface NavbarState {
     open: boolean;
+    user:any;
 }
 
 export class Navbar extends Component<NavbarProps, NavbarState> {
     constructor(props: NavbarProps) {
+
+        let item:any = localStorage.getItem('insightUser');
+        let loggedUser = JSON.parse(item);
+
         super(props);
         this.state = {
             open: false,
+            user:loggedUser
         };
+    }
+
+    componentDidMount() {
+        console.log(this.state.user);
     }
 
     toggleMenu = () => {
@@ -22,7 +32,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
     };
 
     render() {
-        const { open } = this.state;
+        const { open,user } = this.state;
 
         return (
             <div className="w-full fixed top-0 left-0 bg-tertiary z-50">
@@ -59,7 +69,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                                 Blogs
                             </Link>
                         </li>
-                        <li className="md:mr-32 md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
+                        <li className="md:mr-24 md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
                             <Link
                                 className="text-gray-800 hover:text-gray-500 duration-75 pb-1 hover:border-b-4 border-[#526D82]"
                                 to="/menu"
@@ -68,11 +78,34 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                             </Link>
                         </li>
 
-                        <Link className="" to="/sign">
-                            <button className="md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-3">
-                                Get Started
-                            </button>
-                        </Link>
+                        {this.state.user == null && (
+                            <Link className="" to="/sign">
+                                <button className="md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
+                                    Get Started
+                                </button>
+                            </Link>
+                        )}
+
+                        {this.state.user !== null && this.state.user.accountType === 'regular' && (
+                            <Link className="" to="/user">
+                                <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
+                                    {this.state.user.name}
+                                    <FontAwesomeIcon className="pl-4" icon={faUser} />
+                                </button>
+                            </Link>
+                        )}
+
+                        {this.state.user !== null && this.state.user.accountType === 'author' && (
+                            <Link className="" to="/author">
+                                <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
+                                    {this.state.user.name}
+                                    <FontAwesomeIcon className="pl-4" icon={faUser} />
+                                </button>
+                            </Link>
+                        )}
+
+
+
                     </ul>
                 </div>
             </div>
