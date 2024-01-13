@@ -66,7 +66,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                                 className="text-gray-800 hover:text-gray-500 duration-75 pb-1 hover:border-b-4 border-[#526D82]"
                                 to="/blog"
                             >
-                                Blogs
+                                Articles
                             </Link>
                         </li>
                         <li className="md:mr-24 md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
@@ -74,7 +74,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                                 className="text-gray-800 hover:text-gray-500 duration-75 pb-1 hover:border-b-4 border-[#526D82]"
                                 to="/menu"
                             >
-                                Categories
+                                Authors
                             </Link>
                         </li>
 
