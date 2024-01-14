@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {faEdit, faEnvelope, faImage, faUserEdit} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export class UserGeneralInformation extends Component {
     render() {
@@ -19,6 +21,7 @@ export class UserGeneralInformation extends Component {
                             <div className="flex flex-col space-y-5 sm:ml-8">
                                 <button type="button"
                                         className="text-white bg-secondary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                                    <FontAwesomeIcon icon={faImage} className="mr-2" />
                                     Change picture
                                 </button>
                             </div>
@@ -56,7 +59,8 @@ export class UserGeneralInformation extends Component {
                             <div className="flex justify-end">
                                 <button type="button"
                                         className="text-white bg-secondary font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                                    Save
+                                    <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                                    Update details
                                 </button>
                             </div>
 
@@ -64,8 +68,38 @@ export class UserGeneralInformation extends Component {
                     </div>
                 </div>
 
-                <div className="">
-                    <h2>Hi</h2>
+                <div className="h-full w-full pl-4">
+
+                    <div className="w-11/12 h-fit bg-gray-50 mt-24 rounded-md p-4 shadow-xl">
+
+                        <p>
+                            Elevate your experience! Upgrade your account to an author to unlock additional features and
+                            capabilities. Share your thoughts, insights, and creativity with our community.
+                        </p>
+
+                        <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
+                            <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
+                            Upgrade to Author
+                        </button>
+
+                    </div>
+
+                    <div className="w-11/12 h-fit bg-gray-50 mt-10 rounded-md p-4 shadow-xl">
+
+                        <p>
+                            Encountering an issue or have a question? Don't hesitate to reach out to our dedicated team
+                            of admins. We're here to assist you every step of the way. Your satisfaction is our
+                            priority!
+                        </p>
+
+                        <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
+                            <FontAwesomeIcon icon={faEnvelope} className="mr-2"/>
+                            Contact Admin
+                        </button>
+
+                    </div>
+
+
                 </div>
 
             </div>
