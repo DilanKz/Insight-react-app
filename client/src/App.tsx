@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DefaultLayout} from "./view/common/DefaultLayout/DefaultLayout";
 import {Login} from "./view/pages/Login/Login";
 import {SignUp} from "./view/pages/SignUp/SignUp";
-import {AccountCenter} from "./view/pages/UserAccountCenter/AccountCenter";
+import {AccountCenter} from "./view/pages/UserAccountCenter/Dashboard/AccountCenter";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
               <Route path="/*" Component={DefaultLayout}></Route>
               <Route path="/sign" Component={Login}></Route>
               <Route path="/signUp" Component={SignUp}></Route>
-              <Route path="/user" Component={AccountCenter}></Route>
+              <Route path="/user/*" Component={AccountCenter}></Route>
           </Routes>
       </BrowserRouter>
   );
