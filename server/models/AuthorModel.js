@@ -9,9 +9,6 @@ const AuthorModel = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-    },
-    bio: {
-        type: String,
     }
 });
 
