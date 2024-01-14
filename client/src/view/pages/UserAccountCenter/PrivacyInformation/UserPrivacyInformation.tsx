@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
 export class UserPrivacyInformation extends Component {
     render() {
@@ -8,8 +8,8 @@ export class UserPrivacyInformation extends Component {
             <div className="h-full w-full">
                 <h2 className=" text-2xl font-bold sm:text-xl pt-8 ps-3">Privacy and Security</h2>
 
-                <div className="flex h-full w-full justify-center gap-x-10">
-                    <div className="w-full h-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
+                <div className="flex h-max w-full justify-center gap-x-10">
+                    <div className="w-full h-max px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
                         <h2 className=" text-2xl sm:text-xl pt-8 ps-3">Change Password</h2>
                         <div className="flex ">
                             <div className="grid max-w-2xl w-full h-full mx-auto">
@@ -56,7 +56,7 @@ export class UserPrivacyInformation extends Component {
                         </div>
                     </div>
 
-                    <div className="w-full h-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
+                    <div className="w-full h-max px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
                         <h2 className=" text-2xl sm:text-xl pt-8 ps-3">Change Email</h2>
                         <div className="flex ">
                             <div className="grid max-w-2xl w-full h-full mx-auto">
@@ -101,6 +101,26 @@ export class UserPrivacyInformation extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+
+                <div className="w-full h-max flex justify-end">
+
+                    <div className="w-1/2 h-fit bg-gray-50 mt-10 rounded-md p-4 shadow-xl mr-8">
+
+                        <p>
+                            Encountering an issue or have a question? Don't hesitate to reach out to our dedicated
+                            team
+                            of admins. We're here to assist you every step of the way. Your satisfaction is our
+                            priority!
+                        </p>
+
+                        <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
+                            <FontAwesomeIcon icon={faEnvelope} className="mr-2"/>
+                            Contact Admin
+                        </button>
+
                     </div>
 
                 </div>
