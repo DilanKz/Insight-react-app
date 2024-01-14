@@ -114,9 +114,10 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
                                         Manage Article
                                     </p>
 
-                                    <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                                    <Link to="post">
+                                        <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                    >
+                                        >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
@@ -127,12 +128,14 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
                                                         </span>
                                                     </span>
                                                 </span>
-                                        <span>Post Articles</span>
-                                    </div>
+                                            <span>Post Articles</span>
+                                        </div>
+                                    </Link>
 
-                                    <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                                    <Link to="list">
+                                        <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                    >
+                                        >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
@@ -143,8 +146,9 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
                                                         </span>
                                                     </span>
                                                 </span>
-                                        <span>Article list</span>
-                                    </div>
+                                            <span>Article list</span>
+                                        </div>
+                                    </Link>
 
                                 </div>
                             )}
