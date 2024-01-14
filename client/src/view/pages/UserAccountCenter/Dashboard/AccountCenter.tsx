@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Navigate} from "react-router-dom";
+import {UserGeneralInformation} from '../GeneralInformation/UserGeneralInformation';
+import {UserPrivacyInformation} from "../PrivacyInformation/UserPrivacyInformation";
 
 interface AccountCenterStates {
     user:any;
@@ -46,7 +48,7 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
 
     render() {
         return (
-            <>
+            <div className="flex">
                 <div className="h-screen lg:w-[18vw] pt-5 shadow-xl flex flex-col ">
                     <h1 className="text-secondary font-bold text-[2rem] pl-4">INSIGHT</h1>
 
@@ -200,6 +202,9 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
 
                 <div className="h-screen lg:w-[82vw]">
 
+                    <UserGeneralInformation/>
+                    <UserPrivacyInformation/>
+
                 </div>
 
 
@@ -209,7 +214,7 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
                 {
                     this.state.showHome && <Navigate to='/' replace={true}/>
                 }
-            </>
+            </div>
         );
     }
 
