@@ -5,50 +5,40 @@ import {
     faEdit,
     faInfoCircle,
     faLock,
-    faPencilAlt,
+    faTable,
     faTasks,
-    faTrashAlt,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {UserGeneralInformation} from '../GeneralInformation/UserGeneralInformation';
 import {UserPrivacyInformation} from "../PrivacyInformation/UserPrivacyInformation";
+import {DashboardComponent} from "../DashboardContainer/DashboardComponent";
 
 interface AccountCenterStates {
-    user:any;
-    showHome:boolean;
-    showGeneral:boolean;
-    showPrivacy:boolean;
-    showAddArticle:boolean;
-    showDeleteArticle:boolean;
-    showUpdateArticle:boolean;
-    logOut:boolean;
+    user: any;
+    showHome: boolean;
+    logOut: boolean;
 }
 
-export class AccountCenter extends Component<{},AccountCenterStates> {
+export class AccountCenter extends Component<{}, AccountCenterStates> {
 
-    constructor(props:{}) {
+    constructor(props: {}) {
         super(props);
 
-        let item:any = localStorage.getItem('insightUser');
+        let item: any = localStorage.getItem('insightUser');
         let loggedUser = JSON.parse(item);
 
         this.state = {
-            user:loggedUser,
-            showHome:false,
-            showGeneral:true,
-            showPrivacy:false,
-            showAddArticle:false,
-            showDeleteArticle:false,
-            showUpdateArticle:false,
-            logOut:false
+            user: loggedUser,
+            showHome: false,
+            logOut: false
         }
     }
 
     render() {
         return (
-            <div className="flex">
+            <div className="flex overflow-hidden">
                 <div className="h-screen lg:w-[18vw] pt-5 shadow-xl flex flex-col ">
                     <h1 className="text-secondary font-bold text-[2rem] pl-4">INSIGHT</h1>
 
@@ -78,10 +68,10 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
                                     Manage Account
                                 </p>
 
-                                <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                                <Link to="general">
+                                    <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                     onClick={() => this.toggleBoolean('showGeneral')}
-                                >
+                                    >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
@@ -92,13 +82,14 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
                                                         </span>
                                                     </span>
                                                 </span>
-                                    <span>General Information</span>
-                                </div>
+                                        <span>General Information</span>
+                                    </div>
+                                </Link>
 
-                                <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                                <Link to="privacy">
+                                    <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                     onClick={() => this.toggleBoolean('showPrivacy')}
-                                >
+                                    >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
@@ -108,8 +99,9 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
                                                         </span>
                                                     </span>
                                                 </span>
-                                    <span>Privacy and Security</span>
-                                </div>
+                                        <span>Privacy and Security</span>
+                                    </div>
+                                </Link>
 
                             </div>
 
@@ -122,7 +114,6 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
 
                                     <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                         onClick={() => this.toggleBoolean('showAddArticle')}
                                     >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
@@ -139,36 +130,18 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
 
                                     <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                         onClick={() => this.toggleBoolean('showUpdateArticle')}
                                     >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
                                                             <span className="items-center justify-center flex">
                                                                 <FontAwesomeIcon className="pr-3 pl-2"
-                                                                                 icon={faPencilAlt}/>
+                                                                                 icon={faTable}/>
                                                             </span>
                                                         </span>
                                                     </span>
                                                 </span>
-                                        <span>Update Articles</span>
-                                    </div>
-
-                                    <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
-                                                        transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                         onClick={() => this.toggleBoolean('showDeleteArticle')}
-                                    >
-                                                <span className="justify-center items-center flex">
-                                                    <span className="justify-center items-center flex">
-                                                        <span className="justify-center items-center flex">
-                                                            <span className="items-center justify-center flex">
-                                                                <FontAwesomeIcon className="pr-3 pl-2"
-                                                                                 icon={faTrashAlt}/>
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                        <span>Delete Articles</span>
+                                        <span>Article list</span>
                                     </div>
 
                                 </div>
@@ -202,8 +175,13 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
 
                 <div className="h-screen lg:w-[82vw]">
 
-                    <UserGeneralInformation/>
-                    <UserPrivacyInformation/>
+                    {/*{
+                        this.state.showGeneral && <UserGeneralInformation/>
+                    }{
+                        this.state.showPrivacy && <UserPrivacyInformation/>
+                    }*/}
+
+                    <DashboardComponent></DashboardComponent>
 
                 </div>
 
@@ -223,11 +201,6 @@ export class AccountCenter extends Component<{},AccountCenterStates> {
         this.setState(
             {
                 showHome: false,
-                showGeneral: false,
-                showPrivacy: false,
-                showAddArticle: false,
-                showDeleteArticle: false,
-                showUpdateArticle: false,
                 logOut: false
             }
         );
