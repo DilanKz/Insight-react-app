@@ -22,7 +22,7 @@ export class Login extends Component<{}, LoginStates> {
         super(props);
         this.api = axios.create({baseURL: `http://localhost:4000`});
         this.state = {
-            isPwClicked: true,
+            isPwClicked: false,
             loginMail: "",
             loginPass: "",
             forgotMail: "",
@@ -132,7 +132,7 @@ export class Login extends Component<{}, LoginStates> {
                     <FontAwesomeIcon icon={faHouse}/>
                 </Link>
 
-                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center ${isPwClicked ? "hidden" : "flex"}`}>
+                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center ${isPwClicked ? "flex" : "hidden"}`}>
 
                     <div className=" backdrop-blur-sm w-full h-full absolute" onClick={this.togglePwClicked}></div>
 
