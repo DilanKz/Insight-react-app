@@ -87,7 +87,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                         )}
 
                         {this.state.user !== null && this.state.user.accountType === 'regular' && (
-                            <Link className="" to="/user">
+                            <Link className="" to="/user/general">
                                 <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
                                     {this.state.user.name}
                                     <FontAwesomeIcon className="pl-4" icon={faUser} />
@@ -96,7 +96,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                         )}
 
                         {this.state.user !== null && this.state.user.accountType === 'author' && (
-                            <Link className="" to="/author">
+                            <Link className="" to="/user/general">
                                 <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
                                     {this.state.user.name}
                                     <FontAwesomeIcon className="pl-4" icon={faUser} />
