@@ -45,10 +45,11 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
                     <div className="flex-col flex justify-between h-full">
                         <div className="pt-5 mt-2">
 
-                            <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
+                            <Link to="/">
+                                <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                 onClick={() => this.toggleBoolean('showHome')}
-                            >
+                                     onClick={() => this.toggleBoolean('showHome')}
+                                >
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
@@ -58,8 +59,9 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
                                                         </span>
                                                     </span>
                                                 </span>
-                                <span>Back to home</span>
-                            </div>
+                                    <span>Back to home</span>
+                                </div>
+                            </Link>
 
 
                             <div>
@@ -188,9 +190,6 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
 
                 {
                     this.state.logOut && <Navigate to='/' replace={true}/>
-                }
-                {
-                    this.state.showHome && <Navigate to='/' replace={true}/>
                 }
             </div>
         );
