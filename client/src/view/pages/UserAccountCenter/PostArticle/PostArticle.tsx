@@ -1,8 +1,14 @@
-import React, {Component} from "react";
+// TextEditor.tsx
+
+import React, {Component} from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import axios from "axios";
-import ReactQuill from "react-quill";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import 'react-quill/dist/quill.core.css';
+import 'react-quill/dist/quill.bubble.css';
 import {faMagnifyingGlass, faPenToSquare, faX} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 
 interface Tag {
     _id: string;
@@ -20,7 +26,7 @@ interface quilText {
     currentTags: string[],
 }
 
-export class PostArticle extends Component<{}, quilText> {
+export class PostArticle extends Component <{}, quilText> {
     modules = {
         toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
@@ -66,19 +72,13 @@ export class PostArticle extends Component<{}, quilText> {
 
     fetchData = async () => {
         try {
-            try {
-                this.api.get('/tags/all')
-                    .then((res: { data: any }) => {
-                        const jsonData = res.data;
-                        this.setState({tags: jsonData});
-                    }).catch((error: any)=> {
-                    console.error('Axios Error:', error)
-                });
-            } catch (error) {
-                console.log('Error fetching data: ', error)
-            }
-        } catch (e) {
-            console.log("error");
+            const response = await
+                fetch('./tags.json');
+            const jsonData = await response.json();
+            this.setState({tags: jsonData});
+        } catch (error) {
+            console.log('Error fetching data: ',
+                error)
         }
     }
 
@@ -89,7 +89,7 @@ export class PostArticle extends Component<{}, quilText> {
         return (
             <div className="relative">
                 <div className="w-full">
-
+                    <h2 className=" text-2xl font-bold sm:text-xl pt-8 ps-3">Post Article</h2>
                     <div className="mt-12 flex md:flex-row flex-col px-10 h-full justify-between">
 
                         <div className="md:w-[65vw] flex flex-col gap-y-8">
@@ -356,4 +356,5 @@ export class PostArticle extends Component<{}, quilText> {
         }
 
     }
+
 }
