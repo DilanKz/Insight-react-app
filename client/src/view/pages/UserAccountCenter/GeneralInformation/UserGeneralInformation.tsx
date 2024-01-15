@@ -74,6 +74,8 @@ export class UserGeneralInformation extends Component {
 
                         <div className="w-11/12 h-fit bg-gray-50 mt-24 rounded-md p-4 shadow-xl">
 
+                            <h2 className="font-bold pb-3">Upgrade your account to Author.</h2>
+
                             <p>
                                 Elevate your experience! Upgrade your account to an author to unlock additional features
                                 and
@@ -82,13 +84,13 @@ export class UserGeneralInformation extends Component {
 
                             <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
                                 <FontAwesomeIcon icon={faUserEdit} className="mr-2"/>
-                                Upgrade to Author
+                                Upgrade
                             </button>
 
                         </div>
 
                         <div className="w-11/12 h-fit bg-gray-50 mt-10 rounded-md p-4 shadow-xl">
-
+                            <h2 className="font-bold pb-3">Contact an Admin.</h2>
                             <p>
                                 Encountering an issue or have a question? Don't hesitate to reach out to our dedicated
                                 team
@@ -98,7 +100,7 @@ export class UserGeneralInformation extends Component {
 
                             <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
                                 <FontAwesomeIcon icon={faEnvelope} className="mr-2"/>
-                                Contact Admin
+                                Contact
                             </button>
 
                         </div>
