@@ -11,13 +11,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link, Navigate} from "react-router-dom";
-import {UserGeneralInformation} from '../GeneralInformation/UserGeneralInformation';
-import {UserPrivacyInformation} from "../PrivacyInformation/UserPrivacyInformation";
 import {DashboardComponent} from "../DashboardContainer/DashboardComponent";
 
 interface AccountCenterStates {
     user: any;
-    showHome: boolean;
     logOut: boolean;
 }
 
@@ -31,7 +28,6 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
 
         this.state = {
             user: loggedUser,
-            showHome: false,
             logOut: false
         }
     }
@@ -47,9 +43,7 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
 
                             <Link to="/">
                                 <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
-                                                        transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                                     onClick={() => this.toggleBoolean('showHome')}
-                                >
+                                                        transition-all duration-200 hover:bg-gray-200 group cursor-pointer">
                                                 <span className="justify-center items-center flex">
                                                     <span className="justify-center items-center flex">
                                                         <span className="justify-center items-center flex">
@@ -107,7 +101,7 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
 
                             </div>
 
-                            {this.state.user !== null && {/*this.state.user.accountType === 'author'*/} && (
+                            {this.state.user !== null && this.state.user.accountType === 'author' && (
                                 <div>
                                     <p className="px-4 pt-10 pb-3 font-semibold text-xs tracking-widest text-gray-400 uppercase select-none">
                                         <FontAwesomeIcon className="pr-3" icon={faTasks}></FontAwesomeIcon>
@@ -156,11 +150,9 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
 
                         </div>
 
-
                         <div className="mb-2 pl-6 font-medium text-sm items-center rounded-lg text-gray-900 pr-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-
-                             onClick={() => this.toggleBoolean('logOut')}
+                        onClick={this.logOutButtonOnClick}
                         >
                             <span>Log Out</span>
                             <span className="justify-center items-center flex">
@@ -175,6 +167,7 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
                                                 </span>
 
                         </div>
+
                     </div>
 
                 </div>
@@ -199,19 +192,11 @@ export class AccountCenter extends Component<{}, AccountCenterStates> {
         );
     }
 
-    toggleBoolean = (key: keyof AccountCenterStates) => {
-
-        this.setState(
-            {
-                showHome: false,
-                logOut: false
-            }
-        );
-
-        this.setState((prevState) => ({
-            ...prevState,
-            [key]: !prevState[key],
-        }));
+    logOutButtonOnClick = () => {
+        localStorage.removeItem('insightUser');
+        this.setState({
+            logOut: true
+        });
     };
 
 }
