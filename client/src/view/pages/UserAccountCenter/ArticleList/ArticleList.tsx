@@ -1,6 +1,6 @@
 import {Component} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faTrashAlt, faX} from "@fortawesome/free-solid-svg-icons";
 
 export class ArticleList extends Component {
     render() {
@@ -39,7 +39,7 @@ export class ArticleList extends Component {
 
                         <td className="px-3 py-5 text-sm text-gray-800">
                             <FontAwesomeIcon className="pr-5 cursor-pointer text-green-700" icon={faCheck}></FontAwesomeIcon>
-                            <FontAwesomeIcon className="pl-4 cursor-pointer text-red-700" icon={faTrashAlt}></FontAwesomeIcon>
+                            <FontAwesomeIcon className="pl-4 cursor-pointer text-red-700" icon={faX}></FontAwesomeIcon>
                         </td>
                     </tr>
                     </tbody>
