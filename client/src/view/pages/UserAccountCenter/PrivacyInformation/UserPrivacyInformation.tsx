@@ -108,17 +108,16 @@ export class UserPrivacyInformation extends Component {
                 <div className="w-full h-max flex justify-end">
 
                     <div className="w-1/2 h-fit bg-gray-50 mt-10 rounded-md p-4 shadow-xl mr-8">
-
+                        <h2 className="font-bold pb-3">Contact an Admin.</h2>
                         <p>
-                            Encountering an issue or have a question? Don't hesitate to reach out to our dedicated
-                            team
-                            of admins. We're here to assist you every step of the way. Your satisfaction is our
+                            Encountering an issue or have a question?
+                            We're here to assist you every step of the way. Your satisfaction is our
                             priority!
                         </p>
 
                         <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
                             <FontAwesomeIcon icon={faEnvelope} className="mr-2"/>
-                            Contact Admin
+                            Contact
                         </button>
 
                     </div>
