@@ -19,6 +19,12 @@ const UserModel = mongoose.Schema({
     image: {
         type: String,
     },
+    address: {
+        type: String,
+    },
+    contact: {
+        type: String,
+    },
     accountType: {
         type: String,
         enum: ['regular', 'author', 'requested' ,'banned'],
