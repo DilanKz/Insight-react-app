@@ -19,6 +19,11 @@ const articleController = {
         });
 
         res.send(user);
+    },
+
+    getAllFromAuthor:async function(res,req,next){
+        const {id} = req.body;
+        await Article.findOne({_id: id});
     }
 }
 
