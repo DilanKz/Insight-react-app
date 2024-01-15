@@ -46,10 +46,31 @@ const userController = {
         res.send('respond with a resource');
     },
 
-    updateCredentials: function (req, res, next) {
-        let userCred = req.body;
-        console.log(userCred)
-        res.send('respond with a resource');
+    updateCredentials: async function (req, res, next) {
+        try {
+            const {email, name, address, contact, image} = req.body;
+            const savedUser = await User.findOne({email: email});
+
+            if (savedUser) {
+                savedUser.set({
+                    name: name || savedUser.name,
+                    address: address || savedUser.address,
+                    contact: contact || savedUser.contact,
+                    image: image || savedUser.image,
+                });
+
+                const updatedUser = await savedUser.save();
+
+                console.log('User updated:', updatedUser);
+            } else {
+                console.log('User not found');
+            }
+
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({message: 'Internal Server Error'});
+        }
     }
 }
 
