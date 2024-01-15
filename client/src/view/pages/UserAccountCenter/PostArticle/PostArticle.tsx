@@ -24,6 +24,7 @@ interface quilText {
     tags: Tag[],
     search: string,
     currentTags: string[],
+    user:any;
 }
 
 export class PostArticle extends Component <{}, quilText> {
@@ -51,6 +52,10 @@ export class PostArticle extends Component <{}, quilText> {
     constructor(props: {}) {
         super(props);
         this.api = axios.create({baseURL: `http://localhost:4000`});
+
+        let item: any = localStorage.getItem('insightUser');
+        let loggedUser = JSON.parse(item);
+
         this.state = {
             textBody: "",
             title: "",
@@ -59,6 +64,7 @@ export class PostArticle extends Component <{}, quilText> {
             search: "",
             tags: [],
             currentTags: [],
+            user:loggedUser
         }
         this.handleInputsOnChange = this.handleInputsOnChange.bind(this);
         this.handleQuillBodyOnChange = this.handleQuillBodyOnChange.bind(this);
@@ -72,13 +78,19 @@ export class PostArticle extends Component <{}, quilText> {
 
     fetchData = async () => {
         try {
-            const response = await
-                fetch('./tags.json');
-            const jsonData = await response.json();
-            this.setState({tags: jsonData});
-        } catch (error) {
-            console.log('Error fetching data: ',
-                error)
+            try {
+                this.api.get('/tags/all')
+                    .then((res: { data: any }) => {
+                        const jsonData = res.data;
+                        this.setState({tags: jsonData});
+                    }).catch((error: any)=> {
+                    console.error('Axios Error:', error)
+                });
+            } catch (error) {
+                console.log('Error fetching data: ', error)
+            }
+        } catch (e) {
+            console.log("error");
         }
     }
 
@@ -87,8 +99,8 @@ export class PostArticle extends Component <{}, quilText> {
         const {showTagPopup, tags, search} = this.state;
 
         return (
-            <div className="relative">
-                <div className="w-full">
+            <div className="relative h-full overflow-y-scroll no-scroll-bar">
+                <div className="w-full relative">
                     <h2 className=" text-2xl font-bold sm:text-xl pt-8 ps-3">Post Article</h2>
                     <div className="mt-12 flex md:flex-row flex-col px-10 h-full justify-between">
 
@@ -184,15 +196,14 @@ export class PostArticle extends Component <{}, quilText> {
 
                     </div>
 
-                    <div className="fixed w-full bg-tertiary bottom-0 left-0 flex justify-end items-center py-4">
-                        <button className=" rounded-md px-4 py-2 bg-primary text-white mr-4"
-                                onClick={this.onPostButtonOnClick}>
-                            Post
-                        </button>
-                    </div>
-
                 </div>
 
+                <div className="absolute w-full bg-tertiary bottom-0 left-0 flex justify-end items-center py-4">
+                    <button className=" rounded-md px-4 py-2 bg-primary text-white mr-4"
+                            onClick={this.onPostButtonOnClick}>
+                        Post
+                    </button>
+                </div>
 
                 <div
                     className={`w-screen h-screen fixed top-0 left-0 justify-center items-center z-[55] ${showTagPopup ? "flex" : "hidden"}`}>
@@ -210,7 +221,7 @@ export class PostArticle extends Component <{}, quilText> {
                                         id="txtEmail" name="search"
                                         value={this.state.search}
                                         placeholder="Search Tag"
-                                        type="email" required
+                                        type="text" required
                                         onChange={this.handleSearchOnChange}
                                     />
                                     <FontAwesomeIcon className="text-gray-400 pr-4 text-2xl"
@@ -341,6 +352,7 @@ export class PostArticle extends Component <{}, quilText> {
 
         try {
             this.api.post('/articles/add', {
+                id:this.state.user,
                 title: this.state.title,
                 body: this.state.textBody,
                 tags: this.state.currentTags,
