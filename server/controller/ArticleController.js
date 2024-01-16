@@ -21,11 +21,26 @@ const articleController = {
         res.send(user);
     },
 
-    getAllFromAuthor:async function (req, res, next) {
+    getAllFromAuthor: async function (req, res, next) {
         let id = req.body.id;
         let articles = await Article.find({author: id});
         console.log(articles);
         res.send(articles);
+    },
+
+    deleteArticle: async function (req, res, next) {
+        try {
+            let id = req.body.id;
+            let article = await Article.deleteOne({ _id: id });
+
+            if (article.deletedCount > 0) {
+                res.status(200).json({ success: true, message: "Article deleted successfully." });
+            } else {
+                res.status(404).json({ success: false, message: "Article not found." });
+            }
+        } catch (error) {
+            next(error); // Forward the error to the next middleware or error handler
+        }
     }
 }
 
