@@ -21,9 +21,11 @@ const articleController = {
         res.send(user);
     },
 
-    getAllFromAuthor:async function(res,req,next){
-        const {id} = req.body;
-        await Article.findOne({_id: id});
+    getAllFromAuthor:async function (req, res, next) {
+        let id = req.body.id;
+        let articles = await Article.find({author: id});
+        console.log(articles);
+        res.send(articles);
     }
 }
 
