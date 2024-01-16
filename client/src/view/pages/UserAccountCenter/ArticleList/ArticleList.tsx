@@ -1,12 +1,63 @@
 import React, {Component} from "react";
 import img from '../../../../images/selectImage.jpg';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faX} from "@fortawesome/free-solid-svg-icons";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import moment from 'moment';
 
-export class ArticleList extends Component {
+interface ArticleListStates {
+    user: any;
+    data: []
+}
+
+export class ArticleList extends Component<{}, ArticleListStates> {
+    private api: any;
+
+    constructor(props: {}) {
+        super(props);
+
+        this.api = axios.create({baseURL: `http://localhost:4000`});
+
+        let item: any = localStorage.getItem('insightUser');
+        let loggedUser = JSON.parse(item);
+
+        this.state = {
+            user: loggedUser,
+            data: []
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
+        try {
+            try {
+                this.api.post('articles/from', {
+                    id: this.state.user._id
+                })
+                    .then((res: { data: any }) => {
+                        const jsonData = res.data;
+                        this.setState({data: jsonData});
+                    }).catch((error: any) => {
+                    console.error('Axios Error:', error)
+                });
+            } catch (error) {
+                console.log('Error fetching data: ', error)
+            }
+        } catch (e) {
+            console.log("error");
+        }
+    }
+
     render() {
+
+        let {data} = this.state;
+
         return (
             <div className="h-full w-full">
+
                 {/*<table classNameNameName="w-full">
                     <thead>
 
@@ -45,6 +96,7 @@ export class ArticleList extends Component {
                     </tr>
                     </tbody>
                 </table>*/}
+
                 <h2 className=" text-2xl font-bold sm:text-xl pt-8 ps-3">Posted Articles</h2>
 
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full no-scroll-bar">
@@ -72,50 +124,56 @@ export class ArticleList extends Component {
 
                             <tbody className="">
 
-                            <tr className="my-2">
-                                <td className="p-4 border-b border-blue-gray-50">
-                                    <div className="flex items-center gap-3">
-                                        <img src={img}
-                                             className="inline-block relative object-center  w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"/>
-                                    </div>
-                                </td>
-
-                                <td className="p-4 border-b border-blue-gray-50">
-                                    <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">Best place to travel in sri lanka</p>
-                                </td>
-
-                                <td className="p-4 border-b border-blue-gray-50">
-                                    <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">Wed
-                                        3:00pm</p>
-                                </td>
-
-                                <td className="p-4 border-b border-blue-gray-50">
-                                    {/*<div className="w-max">
-                                        <div
-                                            className="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md">
-                                            <span className="">paid</span>
+                            {data.map((article: any) => (
+                                <tr className="my-2" key={article._id}>
+                                    <td className="p-4 border-b border-blue-gray-50">
+                                        <div className="flex items-center gap-3">
+                                            <img src={article.image}
+                                                 className="inline-block relative object-center  w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"/>
                                         </div>
-                                    </div>*/}
-                                    10
-                                </td>
+                                    </td>
 
-                                <td className="p-4 border-b border-blue-gray-50">
-                                    <button
-                                        className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                        type="button">
-                                        <FontAwesomeIcon className="cursor-pointer text-green-700"
-                                                         icon={faCheck}></FontAwesomeIcon>
-                                    </button>
+                                    <td className="p-4 border-b border-blue-gray-50">
+                                        <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                            {article.title}</p>
+                                    </td>
 
-                                    <button
-                                        className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                        type="button">
-                                        <FontAwesomeIcon className=" cursor-pointer text-red-700"
-                                                         icon={faX}></FontAwesomeIcon>
-                                    </button>
-                                </td>
+                                    <td className="p-4 border-b border-blue-gray-50">
+                                        <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                            {moment(article.postData, moment.ISO_8601).isValid()
+                                                ? moment(article.postData).format('MMMM D, YYYY [at] h:mm A')
+                                                : 'Invalid Date'}
+                                        </p>
+                                    </td>
 
-                            </tr>
+                                    <td className="p-4 border-b border-blue-gray-50">
+                                        {/*<div className="w-max">
+                                            <div
+                                                className="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md">
+                                                <span className="">paid</span>
+                                            </div>
+                                        </div>*/}
+                                        {article.clicks}
+                                    </td>
+
+                                    <td className="p-4 border-b border-blue-gray-50">
+                                        {/*<button
+                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                            type="button">
+                                            <FontAwesomeIcon className="cursor-pointer text-green-700"
+                                                             icon={faCheck}></FontAwesomeIcon>
+                                        </button>*/}
+
+                                        <button
+                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                            type="button">
+                                            <FontAwesomeIcon className=" cursor-pointer text-red-700"
+                                                             icon={faTrash}></FontAwesomeIcon>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            ))}
 
                             </tbody>
                         </table>
