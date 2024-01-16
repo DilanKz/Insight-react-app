@@ -4,6 +4,6 @@ const articleController=require('../controller/ArticleController')
 /* GET all articles listing. */
 router.get('/all', articleController.getAllArticles);
 router.post('/add', articleController.postArticle);
-router.get('/from/:id', articleController.getAllFromAuthor);
+router.post('/from', articleController.getAllFromAuthor);
 
 module.exports = router;
