@@ -5,5 +5,6 @@ const articleController=require('../controller/ArticleController')
 router.get('/all', articleController.getAllArticles);
 router.post('/add', articleController.postArticle);
 router.post('/from', articleController.getAllFromAuthor);
+router.delete('/from', articleController.deleteArticle);
 
 module.exports = router;
