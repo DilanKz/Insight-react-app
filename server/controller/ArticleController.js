@@ -61,6 +61,15 @@ const articleController = {
             next(error);
         }
     },
+
+    getRecentArticles: async function (req, res, next) {
+        try {
+            const articles = await Article.find().sort({ postData: -1 }).limit(10);
+            res.send(articles);
+        } catch (error) {
+            next(error);
+        }
+    },
 }
 
 module.exports = articleController;
