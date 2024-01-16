@@ -45,7 +45,17 @@ const articleController = {
 
     getMostClickedArticles: async function (req, res, next) {
         try {
-            const articles = await Article.find().sort({ clicks: -1 }).limit(10); // Adjust the limit as needed
+            const articles = await Article.find().sort({ clicks: -1 }).limit(10);
+            res.send(articles);
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    getArticlesByTags: async function (req, res, next) {
+        try {
+            const tags = req.body.tags;
+            const articles = await Article.find({ tags: { $in: tags } });
             res.send(articles);
         } catch (error) {
             next(error);
