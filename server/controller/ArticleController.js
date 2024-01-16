@@ -41,7 +41,16 @@ const articleController = {
         } catch (error) {
             next(error); // Forward the error to the next middleware or error handler
         }
-    }
+    },
+
+    getMostClickedArticles: async function (req, res, next) {
+        try {
+            const articles = await Article.find().sort({ clicks: -1 }).limit(10); // Adjust the limit as needed
+            res.send(articles);
+        } catch (error) {
+            next(error);
+        }
+    },
 }
 
 module.exports = articleController;
