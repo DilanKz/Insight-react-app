@@ -1,14 +1,16 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+let mailSender = require('../utils/mailSender');
+let otpGenerator = require('../utils/otpGenerator');
 
 const userController = {
     getUserCredentials: async function (req, res, next) {
-        const { mail, password } = req.body;
+        const {mail, password} = req.body;
 
-        const user = await User.findOne({ email:mail});
+        const user = await User.findOne({email: mail});
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).json({message: 'Invalid email or password'});
         }
 
         res.send(user);
@@ -20,7 +22,7 @@ const userController = {
             const userCred = req.body;
 
             const hashedPassword = await bcrypt.hash(userCred.password, 10);
-            const savedUser = await User.findOne({ email:userCred.email });
+            const savedUser = await User.findOne({email: userCred.email});
 
             if (!savedUser) {
                 const user = await User.create({
@@ -31,8 +33,8 @@ const userController = {
                 });
 
                 res.send(user);
-            }else {
-                return res.status(401).json({ message: 'User already exists' });
+            } else {
+                res.status(401).json({message: 'User already exists'});
             }
         } catch (error) {
             console.error(error);
@@ -40,10 +42,28 @@ const userController = {
         }
     },
 
-    getOTP: function (req, res, next) {
-        let userCred = req.body;
-        console.log(userCred)
-        res.send('respond with a resource');
+    getOTP: async function (req, res, next) {
+        let {email} = req.body;
+        const savedUser = await User.findOne({email: email});
+
+        if (savedUser) {
+
+            let otp = otpGenerator.getOtp();
+
+            const dummyMailOptions = {
+                from: 'falonh45@gmail.com',
+                to: email,
+                subject: 'OTP Code',
+                text: `This is your otp code for password reset ${otp}`,
+            };
+
+            await mailSender.sendMail(dummyMailOptions);
+
+            res.send(otp);
+        } else {
+            res.status(401).json({message: 'User doesn\'t exist'});
+        }
+
     },
 
     updateCredentials: async function (req, res, next) {
@@ -71,6 +91,25 @@ const userController = {
             console.error(error);
             res.status(500).json({message: 'Internal Server Error'});
         }
+    },
+
+    updatePassword: async function (req, res, next) {
+        const {email, password} = req.body;
+        const savedUser = await User.findOne({email: email});
+
+        if (savedUser){
+
+            savedUser.set({
+                name: password || savedUser.password
+            });
+
+            await savedUser.save();
+
+            res.status(200).json({message:'password successfully changed'});
+        }else {
+            res.status(401).json({message: 'User doesn\'t exist'});
+        }
+
     }
 }
 
