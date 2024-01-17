@@ -21,6 +21,7 @@ interface quilText {
     title: string;
     image: any;
     showTagPopup: boolean,
+    showPostPopup: boolean,
     tags: Tag[],
     search: string,
     currentTags: string[],
@@ -61,6 +62,7 @@ export class PostArticle extends Component <{}, quilText> {
             title: "",
             image: "",
             showTagPopup: false,
+            showPostPopup: false,
             search: "",
             tags: [],
             currentTags: [],
@@ -96,7 +98,7 @@ export class PostArticle extends Component <{}, quilText> {
 
     render() {
 
-        const {showTagPopup, tags, search} = this.state;
+        const {showTagPopup,showPostPopup, tags, search} = this.state;
 
         return (
             <div className="relative h-full overflow-y-scroll no-scroll-bar">
@@ -200,7 +202,9 @@ export class PostArticle extends Component <{}, quilText> {
 
                 <div className="absolute w-full bg-tertiary bottom-0 left-0 flex justify-end items-center py-4">
                     <button className=" rounded-md px-4 py-2 bg-primary text-white mr-4"
-                            onClick={this.onPostButtonOnClick}>
+                            /*onClick={this.onPostButtonOnClick}*/
+                            onClick={this.togglePostPopup}
+                    >
                         Post
                     </button>
                 </div>
@@ -266,6 +270,36 @@ export class PostArticle extends Component <{}, quilText> {
 
                 </div>
 
+                <div
+                    className={`w-screen h-screen fixed top-0 left-0 justify-center items-center z-[55] ${showPostPopup ? "flex" : "hidden"}`}>
+
+                    <div className=" backdrop-blur-sm w-full h-full z-[55] absolute"
+                         onClick={this.togglePostPopup}></div>
+
+                    <div className="w-1/3 sm:w-1/2 h-max bg-white rounded-md z-[56] drop-shadow-2xl">
+
+                        <div className="p-4">
+                            <p className="text-gray-700">
+                                <strong>Note:</strong> To maintain content integrity and prevent misuse, deletions are
+                                not
+                                allowed after a certain time period, and updates are disabled. Please review your
+                                content carefully before publishing.
+                            </p>
+                        </div>
+
+                        <div className="w-full flex justify-end items-center py-4">
+                            <button className=" rounded-md px-4 py-2 bg-primary text-white mr-4"
+                                onClick={this.onPostButtonOnClick}
+                            >
+                                Publish
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
             </div>
         );
     }
@@ -318,6 +352,13 @@ export class PostArticle extends Component <{}, quilText> {
     toggleTagPopup = () => {
         this.setState((prevState) => ({
             showTagPopup: !prevState.showTagPopup,
+        }));
+
+        console.log(this.state.tags);
+    };
+    togglePostPopup = () => {
+        this.setState((prevState) => ({
+            showPostPopup: !prevState.showPostPopup,
         }));
 
         console.log(this.state.tags);
