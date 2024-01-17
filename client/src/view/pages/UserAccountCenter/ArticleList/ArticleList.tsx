@@ -189,14 +189,14 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                                             <>
                                                 {moment().diff(moment(article.postData), 'hours') < 5 ? (
                                                     <>
-                                                        <button
+                                                        {/*<button
                                                             className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
                                                             type="button">
                                                             <FontAwesomeIcon
                                                                 className="cursor-pointer text-green-700"
                                                                 icon={faPen}
                                                             ></FontAwesomeIcon>
-                                                        </button>
+                                                        </button>*/}
 
                                                         <button
                                                             className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
