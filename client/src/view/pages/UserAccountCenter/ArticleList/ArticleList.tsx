@@ -153,7 +153,8 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                             {data.map((article: any) => (
 
 
-                                <tr className={'my-2'} key={article._id}>
+                                <tr className={`my-2 ${article.availability === 'requested' ? 'bg-yellow-50' : ''}`}
+                                    key={article._id}>
                                     <td className="p-4 border-b border-blue-gray-50">
                                         <div className="flex items-center gap-3">
                                             <img src={article.image}
@@ -185,7 +186,7 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                                     </td>
 
                                     <td className="p-4 border-b border-blue-gray-50">
-                                        {moment(article.postData, moment.ISO_8601).isValid() && (
+                                        {moment(article.postData, moment.ISO_8601).isValid() && article.availability === 'available' && (
                                             <>
                                                 {moment().diff(moment(article.postData), 'hours') < 5 ? (
                                                     <>
@@ -200,7 +201,9 @@ export class ArticleList extends Component<{}, ArticleListStates> {
 
                                                         <button
                                                             className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                                            type="button">
+                                                            type="button"
+                                                            onClick={() => this.deleteArticle(article._id)}
+                                                        >
                                                             <FontAwesomeIcon
                                                                 className=" cursor-pointer text-red-700"
                                                                 icon={faTrash}
@@ -210,7 +213,9 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                                                 ) : (
                                                     <button
                                                         className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                                        type="button">
+                                                        type="button"
+                                                        onClick={() => this.requestToDelete(article._id)}
+                                                    >
                                                         <FontAwesomeIcon
                                                             className="cursor-pointer text-yellow-500"
                                                             icon={faExclamationTriangle}
@@ -227,6 +232,9 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                             </tbody>
                         </table>
                     </div>
+
+
+
                     {
                         this.state.loader && (
                             <div className="absolute w-full h-full bg-gray-50 opacity-70 top-0 left-0">
@@ -240,4 +248,34 @@ export class ArticleList extends Component<{}, ArticleListStates> {
             </div>
         );
     }
+
+    requestToDelete=(id:string)=>{
+        try {
+            this.api.put(`articles/request/${id}`)
+                .then((res: { data: any }) => {
+
+                    console.log('delete request has been sent to an admin')
+                    this.fetchData();
+                }).catch((error: any) => {
+                console.error('Error:', error);
+            });
+        } catch (error) {
+            console.log('Error fetching data: ', error)
+        }
+    }
+    deleteArticle = (id: string) => {
+        try {
+            this.api.delete(`articles/remove/${id}`)
+                .then((res: { data: any }) => {
+                    console.log('Delete request has been sent to an admin');
+                    this.fetchData();
+                })
+                .catch((error: any) => {
+                    console.error('Error:', error);
+                });
+        } catch (error) {
+            console.log('Error fetching data: ', error);
+        }
+    };
+
 }
