@@ -30,7 +30,7 @@ const articleController = {
 
     deleteArticle: async function (req, res, next) {
         try {
-            let id = req.body.id;
+            const { id } = req.params;
             let article = await Article.deleteOne({ _id: id });
 
             if (article.deletedCount > 0) {
@@ -45,7 +45,7 @@ const articleController = {
 
     askForDelete: async function (req, res, next) {
         try {
-            let id = req.body.id;
+            let id = req.params.id;
             const updatedArticle = await Article.findByIdAndUpdate(
                 id,
                 { $set: { availability: 'requested' } },
