@@ -33,7 +33,7 @@ const ArticleModel = mongoose.Schema({
     availability: {
         type: String,
         enum: ['available','requested'],
-        default: 'regular',
+        default: 'available',
     }
 });
 
