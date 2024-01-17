@@ -124,6 +124,52 @@ const userController = {
 
 
     }
+
+    /*updateCredentials: async function (req, res, next) {
+        try {
+            const {email, name, address, contact, image} = req.body;
+            const savedUser = await User.findOne({email: email});
+
+            if (savedUser) {
+                savedUser.set({
+                    name: name || savedUser.name,
+                    address: address || savedUser.address,
+                    contact: contact || savedUser.contact,
+                    image: image || savedUser.image,
+                });
+
+                const updatedUser = await savedUser.save();
+
+                console.log('User updated:', updatedUser);
+            } else {
+                console.log('User not found');
+            }
+
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({message: 'Internal Server Error'});
+        }
+    },
+
+    updatePassword: async function (req, res, next) {
+        const {email, password} = req.body;
+        const savedUser = await User.findOne({email: email});
+
+        if (savedUser){
+
+            savedUser.set({
+                name: password || savedUser.password
+            });
+
+            await savedUser.save();
+
+            res.status(200).json({message:'password successfully changed'});
+        }else {
+            res.status(401).json({message: 'User doesn\'t exist'});
+        }
+
+    }*/
 }
 
 module.exports = userController
