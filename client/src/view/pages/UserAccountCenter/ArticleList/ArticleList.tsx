@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationTriangle, faPen, faRotateRight, faSpinner, faTrash} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import moment from 'moment';
+import {RowSkeleton} from "./RowSkeleton";
 
 interface ArticleListStates {
     user: any;
@@ -130,10 +131,10 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>
                             <tr>
-                                <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                                <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 w-24">
                                     <p className="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">Image</p>
                                 </th>
-                                <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                                <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 w-[48%] ">
                                     <p className="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70">Title</p>
                                 </th>
                                 <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
@@ -148,49 +149,62 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                             </tr>
                             </thead>
 
-                            <tbody className="">
 
-                            {data.map((article: any) => (
+                            {
+                                this.state.loader ? (
+                                    <tbody>
+
+                                    <RowSkeleton></RowSkeleton>
+                                    <RowSkeleton></RowSkeleton>
+                                    <RowSkeleton></RowSkeleton>
+                                    <RowSkeleton></RowSkeleton>
+                                    <RowSkeleton></RowSkeleton>
+
+                                    </tbody>
+                                ) : (
+                                    <tbody className="">
+
+                                    {data.map((article: any) => (
 
 
-                                <tr className={`my-2 ${article.availability === 'requested' ? 'bg-yellow-50' : ''}`}
-                                    key={article._id}>
-                                    <td className="p-4 border-b border-blue-gray-50">
-                                        <div className="flex items-center gap-3">
-                                            <img src={article.image}
-                                                 className="inline-block relative object-center  w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"/>
-                                        </div>
-                                    </td>
+                                        <tr className={`my-2 ${article.availability === 'requested' ? 'bg-yellow-50' : ''}`}
+                                            key={article._id}>
+                                            <td className="p-4 border-b border-blue-gray-50">
+                                                <div className="flex items-center gap-3">
+                                                    <img src={article.image}
+                                                         className="inline-block relative object-center  w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"/>
+                                                </div>
+                                            </td>
 
-                                    <td className="p-4 border-b border-blue-gray-50">
-                                        <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {article.title}</p>
-                                    </td>
+                                            <td className="p-4 border-b border-blue-gray-50">
+                                                <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                                    {article.title}</p>
+                                            </td>
 
-                                    <td className="p-4 border-b border-blue-gray-50">
-                                        <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                                            {moment(article.postData, moment.ISO_8601).isValid()
-                                                ? moment(article.postData).format('MMMM D, YYYY [at] h:mm A')
-                                                : 'Invalid Date'}
-                                        </p>
-                                    </td>
+                                            <td className="p-4 border-b border-blue-gray-50">
+                                                <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                                                    {moment(article.postData, moment.ISO_8601).isValid()
+                                                        ? moment(article.postData).format('MMMM D, YYYY [at] h:mm A')
+                                                        : 'Invalid Date'}
+                                                </p>
+                                            </td>
 
-                                    <td className="p-4 border-b border-blue-gray-50">
-                                        {/*<div className="w-max">
+                                            <td className="p-4 border-b border-blue-gray-50">
+                                                {/*<div className="w-max">
                                             <div
                                                 className="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md">
                                                 <span className="">paid</span>
                                             </div>
                                         </div>*/}
-                                        {article.clicks}
-                                    </td>
+                                                {article.clicks}
+                                            </td>
 
-                                    <td className="p-4 border-b border-blue-gray-50">
-                                        {moment(article.postData, moment.ISO_8601).isValid() && article.availability === 'available' && (
-                                            <>
-                                                {moment().diff(moment(article.postData), 'hours') < 5 ? (
+                                            <td className="p-4 border-b border-blue-gray-50">
+                                                {moment(article.postData, moment.ISO_8601).isValid() && article.availability === 'available' && (
                                                     <>
-                                                        {/*<button
+                                                        {moment().diff(moment(article.postData), 'hours') < 5 ? (
+                                                            <>
+                                                                {/*<button
                                                             className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
                                                             type="button">
                                                             <FontAwesomeIcon
@@ -199,57 +213,49 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                                                             ></FontAwesomeIcon>
                                                         </button>*/}
 
-                                                        <button
-                                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                                            type="button"
-                                                            onClick={() => this.deleteArticle(article._id)}
-                                                        >
-                                                            <FontAwesomeIcon
-                                                                className=" cursor-pointer text-red-700"
-                                                                icon={faTrash}
-                                                            ></FontAwesomeIcon>
-                                                        </button>
+                                                                <button
+                                                                    className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                                    type="button"
+                                                                    onClick={() => this.deleteArticle(article._id)}
+                                                                >
+                                                                    <FontAwesomeIcon
+                                                                        className=" cursor-pointer text-red-700"
+                                                                        icon={faTrash}
+                                                                    ></FontAwesomeIcon>
+                                                                </button>
+                                                            </>
+                                                        ) : (
+                                                            <button
+                                                                className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                                type="button"
+                                                                onClick={() => this.requestToDelete(article._id)}
+                                                            >
+                                                                <FontAwesomeIcon
+                                                                    className="cursor-pointer text-yellow-500"
+                                                                    icon={faExclamationTriangle}
+                                                                ></FontAwesomeIcon>
+                                                            </button>
+                                                        )}
                                                     </>
-                                                ) : (
-                                                    <button
-                                                        className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                                        type="button"
-                                                        onClick={() => this.requestToDelete(article._id)}
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            className="cursor-pointer text-yellow-500"
-                                                            icon={faExclamationTriangle}
-                                                        ></FontAwesomeIcon>
-                                                    </button>
                                                 )}
-                                            </>
-                                        )}
-                                    </td>
+                                            </td>
 
-                                </tr>
-                            ))}
+                                        </tr>
+                                    ))}
 
-                            </tbody>
+                                    </tbody>
+                                )
+                            }
+
                         </table>
                     </div>
-
-
-
-                    {
-                        this.state.loader && (
-                            <div className="absolute w-full h-full bg-gray-50 opacity-70 top-0 left-0">
-                                <FontAwesomeIcon className="text-2xl absolute top-0 bottom-0 left-0 right-0 m-auto"
-                                                 icon={faSpinner} spin/>
-                            </div>
-                        )
-                    }
                 </div>
 
             </div>
         );
     }
 
-    requestToDelete=(id:string)=>{
+    requestToDelete = (id: string) => {
         try {
             this.api.put(`articles/request/${id}`)
                 .then((res: { data: any }) => {
