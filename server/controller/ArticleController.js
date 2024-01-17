@@ -43,6 +43,24 @@ const articleController = {
         }
     },
 
+    askForDelete: async function (req, res, next) {
+        try {
+            let id = req.body.id;
+            const updatedArticle = await Article.findByIdAndUpdate(
+                id,
+                { $set: { availability: 'requested' } },
+                { new: true }
+            );
+
+            if (!updatedArticle) {
+                return res.status(404).json({ message: 'Article not found' });
+            }
+
+            res.json("article is requested to delete");
+        } catch (error) {
+        }
+    },
+
     getMostClickedArticles: async function (req, res, next) {
         try {
             const articles = await Article.find().sort({ clicks: -1 }).limit(10);
