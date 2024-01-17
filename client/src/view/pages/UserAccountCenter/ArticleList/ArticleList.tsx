@@ -159,6 +159,8 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                                     <RowSkeleton></RowSkeleton>
                                     <RowSkeleton></RowSkeleton>
                                     <RowSkeleton></RowSkeleton>
+                                    <RowSkeleton></RowSkeleton>
+                                    <RowSkeleton></RowSkeleton>
 
                                     </tbody>
                                 ) : (
