@@ -68,22 +68,27 @@ const userController = {
 
     updateCredentials: async function (req, res, next) {
         try {
-            const {email, name, address, contact, image} = req.body;
-            const savedUser = await User.findOne({email: email});
+            const { email, name, address, contact, image } = req.body;
 
-            if (savedUser) {
-                savedUser.set({
-                    name: name || savedUser.name,
-                    address: address || savedUser.address,
-                    contact: contact || savedUser.contact,
-                    image: image || savedUser.image,
-                });
+            const updatedUser = await User.findOneAndUpdate(
+                { email: email },
+                {
+                    $set: {
+                        name: name || '',
+                        address: address || '',
+                        contact: contact || '',
+                        image: image || '',
+                    },
+                },
+                { new: true }
+            );
 
-                const updatedUser = await savedUser.save();
-
+            if (updatedUser) {
                 console.log('User updated:', updatedUser);
+                res.send(updatedUser);
             } else {
                 console.log('User not found');
+                res.status(401).json({message: 'User not found'});
             }
 
 
@@ -94,21 +99,29 @@ const userController = {
     },
 
     updatePassword: async function (req, res, next) {
-        const {email, password} = req.body;
-        const savedUser = await User.findOne({email: email});
+        const { email, password } = req.body;
 
-        if (savedUser){
+        try {
+            const savedUser = await User.findOne({ email: email });
 
-            savedUser.set({
-                name: password || savedUser.password
-            });
+            if (savedUser) {
+                const hashedPassword = await bcrypt.hash(password, 10);
 
-            await savedUser.save();
+                savedUser.set({
+                    password: hashedPassword,
+                });
 
-            res.status(200).json({message:'password successfully changed'});
-        }else {
-            res.status(401).json({message: 'User doesn\'t exist'});
+                await savedUser.save();
+
+                return res.status(200).json({ message: 'Password successfully changed' });
+            } else {
+                return res.status(401).json({ message: 'User doesn\'t exist' });
+            }
+        } catch (error) {
+            console.error('Error updating password:', error);
+            return res.status(500).json({ message: 'Internal Server Error' });
         }
+
 
     }
 }
