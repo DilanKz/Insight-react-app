@@ -4,7 +4,6 @@ export class ArticleContainerSkeleton extends Component {
     render() {
         return (
             <div className="w-full px-16">
-                <h1 className={"text-gray-800 text-4xl mb-10 bg-gray-300 h-8 w-1/4 rounded-md animate-pulse"}></h1>
 
                 <div className="w-full flex justify-between flex-wrap">
 
@@ -28,7 +27,7 @@ export class ArticleContainerSkeleton extends Component {
                     </div>
 
                 </div>
-
+                <h1 className={"text-gray-800 text-4xl my-10 bg-gray-300 h-8 w-1/4 rounded-md animate-pulse"}></h1>
                 <div
                     className="flex md:justify-between justify-center w-full py-4 h-max mt-8 mb-8 flex-wrap gap-y-4 gap-x-2">
 
