@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import img from '../../../../images/selectImage.jpg';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faExclamationTriangle, faPen, faRotateRight, faSpinner, faTrash} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import moment from 'moment';
 
 interface ArticleListStates {
     user: any;
-    data: []
+    data: [],
+    loader: boolean;
 }
 
 export class ArticleList extends Component<{}, ArticleListStates> {
@@ -23,7 +24,8 @@ export class ArticleList extends Component<{}, ArticleListStates> {
 
         this.state = {
             user: loggedUser,
-            data: []
+            data: [],
+            loader: true
         }
     }
 
@@ -32,6 +34,11 @@ export class ArticleList extends Component<{}, ArticleListStates> {
     }
 
     fetchData = async () => {
+
+        this.setState({
+            loader:true
+        });
+
         try {
             try {
                 this.api.post('articles/from', {
@@ -39,7 +46,10 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                 })
                     .then((res: { data: any }) => {
                         const jsonData = res.data;
-                        this.setState({data: jsonData});
+                        this.setState({
+                            data: jsonData,
+                            loader: false
+                        });
                     }).catch((error: any) => {
                     console.error('Axios Error:', error)
                 });
@@ -56,7 +66,7 @@ export class ArticleList extends Component<{}, ArticleListStates> {
         let {data} = this.state;
 
         return (
-            <div className="h-full w-full">
+            <div className="h-full w-full relative">
 
                 {/*<table classNameNameName="w-full">
                     <thead>
@@ -97,8 +107,24 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                     </tbody>
                 </table>*/}
 
-                <h2 className=" text-2xl font-bold sm:text-xl pt-8 ps-3">Posted Articles</h2>
+                <div className="w-full flex justify-between items-end">
+                    <h2 className="text-2xl font-bold sm:text-xl pt-8 ps-3 w-max">Posted Articles</h2>
 
+                    {
+                    !this.state.loader && (
+                    <button
+                        className="mr-4 relative text-xl align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                        type="button"
+                        onClick={this.fetchData}
+                    >
+                        <FontAwesomeIcon
+                            className=" cursor-pointer text-gray-800"
+                            icon={faRotateRight}
+                        ></FontAwesomeIcon>
+                    </button>
+                    )
+                }
+                </div>
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full no-scroll-bar">
                     <div className="p-6 overflow-x-hidden overflow-y-scroll no-scroll-bar px-0">
                         <table className="w-full min-w-max table-auto text-left">
@@ -125,7 +151,9 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                             <tbody className="">
 
                             {data.map((article: any) => (
-                                <tr className="my-2" key={article._id}>
+
+
+                                <tr className={'my-2'} key={article._id}>
                                     <td className="p-4 border-b border-blue-gray-50">
                                         <div className="flex items-center gap-3">
                                             <img src={article.image}
@@ -157,19 +185,40 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                                     </td>
 
                                     <td className="p-4 border-b border-blue-gray-50">
-                                        {/*<button
-                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                            type="button">
-                                            <FontAwesomeIcon className="cursor-pointer text-green-700"
-                                                             icon={faCheck}></FontAwesomeIcon>
-                                        </button>*/}
+                                        {moment(article.postData, moment.ISO_8601).isValid() && (
+                                            <>
+                                                {moment().diff(moment(article.postData), 'hours') < 5 ? (
+                                                    <>
+                                                        <button
+                                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                            type="button">
+                                                            <FontAwesomeIcon
+                                                                className="cursor-pointer text-green-700"
+                                                                icon={faPen}
+                                                            ></FontAwesomeIcon>
+                                                        </button>
 
-                                        <button
-                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                            type="button">
-                                            <FontAwesomeIcon className=" cursor-pointer text-red-700"
-                                                             icon={faTrash}></FontAwesomeIcon>
-                                        </button>
+                                                        <button
+                                                            className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                            type="button">
+                                                            <FontAwesomeIcon
+                                                                className=" cursor-pointer text-red-700"
+                                                                icon={faTrash}
+                                                            ></FontAwesomeIcon>
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <button
+                                                        className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                        type="button">
+                                                        <FontAwesomeIcon
+                                                            className="cursor-pointer text-yellow-500"
+                                                            icon={faExclamationTriangle}
+                                                        ></FontAwesomeIcon>
+                                                    </button>
+                                                )}
+                                            </>
+                                        )}
                                     </td>
 
                                 </tr>
@@ -178,9 +227,15 @@ export class ArticleList extends Component<{}, ArticleListStates> {
                             </tbody>
                         </table>
                     </div>
-
+                    {
+                        this.state.loader && (
+                            <div className="absolute w-full h-full bg-gray-50 opacity-70 top-0 left-0">
+                                <FontAwesomeIcon className="text-2xl absolute top-0 bottom-0 left-0 right-0 m-auto"
+                                                 icon={faSpinner} spin/>
+                            </div>
+                        )
+                    }
                 </div>
-
 
             </div>
         );
