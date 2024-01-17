@@ -30,6 +30,11 @@ const ArticleModel = mongoose.Schema({
         type: Number,
         default: 0,
     },
+    availability: {
+        type: String,
+        enum: ['available','requested'],
+        default: 'regular',
+    }
 });
 
 const Article = mongoose.model('Article', ArticleModel);
