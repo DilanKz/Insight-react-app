@@ -39,7 +39,7 @@ const articleController = {
                 res.status(404).json({ success: false, message: "Article not found." });
             }
         } catch (error) {
-            next(error); // Forward the error to the next middleware or error handler
+            next(error);
         }
     },
 
