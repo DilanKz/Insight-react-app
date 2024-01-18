@@ -12,15 +12,15 @@ export class Article extends Component<ArticleProps> {
         const {data} = this.props;
 
         return (
-            <div className="w-[350px] h-fit pb-5 justify-center flex flex-wrap pt-6">
-                <div className="w-[330px] h-[400px] rounded-2xl">
+            <div className="w-[320px] h-fit pb-5 justify-center flex flex-wrap pt-6">
+                <div className="w-[310px] h-[400px] rounded-2xl">
 
-                    <div className="w-[330px] h-[400px] bg-gray-200 rounded-2xl
+                    <div className="w-[310px] h-[400px] bg-gray-200 rounded-2xl
                                 relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
 
                     </div>
                 </div>
-                <div className="w-[330px] min-h-8 flex gap-x-3 text-xs mt-1">
+                <div className="w-[310px] min-h-8 flex gap-x-3 text-xs mt-1">
 
                     {
                         data.tags.map((tag: any) => (
@@ -34,7 +34,7 @@ export class Article extends Component<ArticleProps> {
                     }
 
                 </div>
-                <div className="w-[330px] h-16 mt-3 flex flex-wrap">
+                <div className="w-[310px] h-16 mt-3 flex flex-wrap">
 
                     <Link to="/Article" onClick={() => this.setArticleStaticValue(data)}>
 
