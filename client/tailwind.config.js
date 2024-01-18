@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        serif: ['Jost', 'sans']
+        serif: ['Jost', 'sans'],
+        serifDisplay: ['"DM Serif Display"', 'serif'],
       },
       colors: {
         primary: '#526D82',
