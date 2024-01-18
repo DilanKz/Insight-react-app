@@ -31,16 +31,16 @@ export class ArticleContainerSkeleton extends Component {
                 <div
                     className="flex md:justify-between justify-center w-full py-4 h-max mt-8 mb-8 flex-wrap gap-y-4 gap-x-2">
 
-                    <div className="w-56 h-72 bg-gray-300 rounded-xl animate-pulse">
+                    <div className="w-72 h-96 bg-gray-300 rounded-xl animate-pulse">
 
                     </div>
-                    <div className="w-56 h-72 bg-gray-300 rounded-xl animate-pulse">
+                    <div className="w-72 h-96 bg-gray-300 rounded-xl animate-pulse">
 
                     </div>
-                    <div className="w-56 h-72 bg-gray-300 rounded-xl animate-pulse">
+                    <div className="w-72 h-96 bg-gray-300 rounded-xl animate-pulse">
 
                     </div>
-                    <div className="w-56 h-72 bg-gray-300 rounded-xl animate-pulse">
+                    <div className="w-72 h-96 bg-gray-300 rounded-xl animate-pulse">
 
                     </div>
 
