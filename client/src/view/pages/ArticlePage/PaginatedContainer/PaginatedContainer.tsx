@@ -77,7 +77,7 @@ export class PaginatedContainer extends Component {
 
                     <div className="min-h-screen h-max flex justify-evenly flex-wrap">
                         {paginatedArticles.map((article: any) => (
-                            <div key={article.id} className="inline-block cursor-pointer">
+                            <div key={article._id} className="inline-block cursor-pointer">
                                 <Article key={article.id} data={article}/>
                             </div>
                         ))}
