@@ -1,8 +1,42 @@
 import React, {Component} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faExclamationTriangle, faX} from "@fortawesome/free-solid-svg-icons";
+import axios, {AxiosInstance} from "axios";
 
 export class AuthorRequests extends Component {
+    private api:AxiosInstance;
+    constructor(props:{}) {
+        super(props);
+        this.api=axios.create({baseURL:`http://localhost:4000`})
+        this.state = {
+            data: [],
+            article:false,
+            authors:false,
+        }
+    }
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
+        this.setState({article:false,authors:false});
+        try {
+            try {
+                this.api.post('/users/requested')
+                    .then((res: { data: any }) => {
+                        const jsonData = res.data;
+                        this.setState({data: jsonData,article:true});
+                    }).catch((error: any)=> {
+                    console.error('Axios Error:', error)
+                });
+            } catch (error) {
+                console.log('Error fetching data: ', error)
+            }
+        } catch (e) {
+            console.log("error");
+        }
+    }
+
     render() {
         return (
             <div className="w-full">
