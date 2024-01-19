@@ -4,6 +4,7 @@ import {Article} from "../../common/Article/Article";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import {ArticleSkeleton} from "../../common/Article/ArticleSkeleton";
 
 export class Home extends Component {
     private slider:any;
@@ -12,7 +13,9 @@ export class Home extends Component {
         super(props);
         this.api=axios.create({baseURL:`http://localhost:4000`})
         this.state = {
-            data: []
+            data: [],
+            article:false,
+            authors:false,
         }
     }
 
@@ -22,12 +25,13 @@ export class Home extends Component {
     }
 
     fetchData = async () => {
+        this.setState({article:false,authors:false});
         try {
             try {
                 this.api.get('/articles/all')
                     .then((res: { data: any }) => {
                         const jsonData = res.data;
-                        this.setState({data: jsonData});
+                        this.setState({data: jsonData,article:true});
                     }).catch((error: any)=> {
                     console.error('Axios Error:', error)
                 });
@@ -48,7 +52,7 @@ export class Home extends Component {
 
     render() {
         //@ts-ignore
-        const {data} = this.state;
+        const {data,authors,article} = this.state;
 
         return (
 
@@ -136,21 +140,31 @@ export class Home extends Component {
                         </div>
                         <div className="relative flex items-center">
 
-                            <h3 className="block cursor-pointer p-6 hidden sm:inline" onClick={this.slideLeft}>
+                            <h3 className="md:block cursor-pointer p-6 hidden sm:inline" onClick={this.slideLeft}>
                                 <FontAwesomeIcon icon={faChevronLeft}/>
                             </h3>
                             <div id="slider"
-                                 className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scroll-bar">
+                                 className="w-full h-full overflow-y-hidden overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scroll-bar">
 
-                            {data.slice(0, 5).map((article: any) => (
-                                    <div key={article.id} className="inline-block cursor-pointer">
-                                        <Article key={article.id} data={article}/>
-                                    </div>
-                                ))}
+                                {article ? (
+                                    data.slice(0, 5).map((article: any) => (
+                                        <div key={article._id} className="inline-block cursor-pointer">
+                                            <Article key={article.id} data={article}/>
+                                        </div>
+                                    ))
+                                ) : (
+                                    Array.from({ length: 5 }).map((_, index) => (
+                                        <div key={index} className="inline-block cursor-pointer">
+                                            <ArticleSkeleton />
+                                        </div>
+                                    ))
+                                )}
+
+
 
                             </div>
 
-                            <h3 className="block cursor-pointer p-6 hidden sm:inline" onClick={this.slideRight}>
+                            <h3 className="md:block cursor-pointer p-6 hidden sm:inline" onClick={this.slideRight}>
                                 <FontAwesomeIcon icon={faChevronRight}/>
                             </h3>
 
@@ -173,11 +187,18 @@ export class Home extends Component {
                         <div
                             className="flex flex-wrap justify-evenly items-start transition-all ease-in-out gap-5 mt-10">
 
-                            {
+
+                            {article ? (
                                 data.slice(0, 9).map((article: any) => (
-                                    <Article key={article.id} data={article}/>
+                                    <Article key={article._id} data={article}/>
                                 ))
-                            }
+                            ) : (
+                                Array.from({ length: 9 }).map((_, index) => (
+                                    <div key={index} className="inline-block cursor-pointer">
+                                        <ArticleSkeleton />
+                                    </div>
+                                ))
+                            )}
 
                             <div className="w-full flex justify-center">
                                 <button className="bg-blue-950 text-white text-2xl px-2 py-0.5 rounded-xl">Load more
