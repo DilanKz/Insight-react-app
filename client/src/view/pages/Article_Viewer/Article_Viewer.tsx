@@ -42,7 +42,10 @@ export class Article_Viewer extends Component<{}, {}> {
 
                     <div className="md:w-[30%] w-[35rem] h-[26rem] rounded-2xl">
 
-                        <div className="md:w-full h-full bg-gray-200 rounded-2xl relative transform">
+                        <div className="md:w-full h-full bg-gray-200 rounded-2xl relative transform"
+                             style={{ background: `url('${this.Article.image}')`,backgroundSize: 'cover',
+                                 backgroundPosition: 'center', }}
+                        >
 
                         </div>
                     </div>
@@ -51,7 +54,7 @@ export class Article_Viewer extends Component<{}, {}> {
 
                 <div
                     dangerouslySetInnerHTML={{__html: this.Article.body}}
-                    className="prose custom-content text-2xl"
+                    className="prose custom-content text-2xl mb-16"
                 ></div>
 
 
