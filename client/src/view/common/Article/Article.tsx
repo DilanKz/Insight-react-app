@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import * as url from "url";
 
 interface ArticleProps {
     data: any;
@@ -16,7 +17,10 @@ export class Article extends Component<ArticleProps> {
                 <div className="w-[310px] h-[400px] rounded-2xl">
 
                     <div className="w-[310px] h-[400px] bg-gray-200 rounded-2xl
-                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out">
+                                relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out"
+                         style={{ background: `url('${data.image}')`,backgroundSize: 'cover',
+                             backgroundPosition: 'center', }}
+                    >
 
                     </div>
                 </div>
@@ -36,7 +40,7 @@ export class Article extends Component<ArticleProps> {
                 </div>
                 <div className="w-[310px] h-16 mt-3 flex flex-wrap">
 
-                    <Link to="/Article" onClick={() => this.setArticleStaticValue(data)}>
+                    <Link to="/Article" onClick={() => { this.setArticleStaticValue(data); window.scrollTo(0, 0); }}>
 
                         <h3 className="text-2xl cursor-pointer hover:underline overflow-hidden whitespace-normal">
                             {data.title}
