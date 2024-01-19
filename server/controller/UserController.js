@@ -65,13 +65,16 @@ const userController = {
         }
 
     },
-
+    getRequested: async function (req, res, next) {
+        const users = await User.find({accountType: 'requested'});
+        res.send(users);
+    },
     updateCredentials: async function (req, res, next) {
         try {
-            const { email, name, address, contact, image } = req.body;
+            const {email, name, address, contact, image} = req.body;
 
             const updatedUser = await User.findOneAndUpdate(
-                { email: email },
+                {email: email},
                 {
                     $set: {
                         name: name || '',
@@ -80,7 +83,7 @@ const userController = {
                         image: image || '',
                     },
                 },
-                { new: true }
+                {new: true}
             );
 
             if (updatedUser) {
@@ -99,10 +102,10 @@ const userController = {
     },
 
     updatePassword: async function (req, res, next) {
-        const { email, password } = req.body;
+        const {email, password} = req.body;
 
         try {
-            const savedUser = await User.findOne({ email: email });
+            const savedUser = await User.findOne({email: email});
 
             if (savedUser) {
                 const hashedPassword = await bcrypt.hash(password, 10);
@@ -113,13 +116,13 @@ const userController = {
 
                 await savedUser.save();
 
-                return res.status(200).json({ message: 'Password successfully changed' });
+                return res.status(200).json({message: 'Password successfully changed'});
             } else {
-                return res.status(401).json({ message: 'User doesn\'t exist' });
+                return res.status(401).json({message: 'User doesn\'t exist'});
             }
         } catch (error) {
             console.error('Error updating password:', error);
-            return res.status(500).json({ message: 'Internal Server Error' });
+            return res.status(500).json({message: 'Internal Server Error'});
         }
 
 
