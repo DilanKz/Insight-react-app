@@ -126,6 +126,25 @@ const userController = {
         }
 
 
+    },
+    swapAccount: async function(req,res,next){
+        const {id, type} = req.body;
+
+        try {
+            const updatedUser = await User.findOneAndUpdate(
+                {_id: id},
+                {
+                    $set: {
+                        accountType:type
+                    },
+                },
+                {new: true}
+            );
+            return res.status(200).json(updatedUser);
+        }catch (e) {
+            return res.status(200).json({message:'error changing account'});
+        }
+
     }
 
     /*updateCredentials: async function (req, res, next) {
