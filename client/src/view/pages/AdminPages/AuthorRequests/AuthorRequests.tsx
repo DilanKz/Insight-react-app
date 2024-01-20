@@ -1,32 +1,39 @@
 import React, {Component} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faExclamationTriangle, faX} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faX} from "@fortawesome/free-solid-svg-icons";
 import axios, {AxiosInstance} from "axios";
+import {AuthorRowSkeleton} from "./AuthorRowSkeleton";
 
-export class AuthorRequests extends Component {
-    private api:AxiosInstance;
-    constructor(props:{}) {
+interface RequestsStates {
+    data: string[];
+    authors: boolean;
+}
+
+export class AuthorRequests extends Component<{}, RequestsStates> {
+    private api: AxiosInstance;
+
+    constructor(props: {}) {
         super(props);
-        this.api=axios.create({baseURL:`http://localhost:4000`})
+        this.api = axios.create({baseURL: `http://localhost:4000`})
         this.state = {
             data: [],
-            article:false,
-            authors:false,
+            authors: false,
         }
     }
+
     componentDidMount() {
         this.fetchData();
     }
 
     fetchData = async () => {
-        this.setState({article:false,authors:false});
+        this.setState({authors: false});
         try {
             try {
                 this.api.post('/users/requested')
                     .then((res: { data: any }) => {
                         const jsonData = res.data;
-                        this.setState({data: jsonData,article:true});
-                    }).catch((error: any)=> {
+                        this.setState({data: jsonData, authors: true});
+                    }).catch((error: any) => {
                     console.error('Axios Error:', error)
                 });
             } catch (error) {
@@ -38,6 +45,7 @@ export class AuthorRequests extends Component {
     }
 
     render() {
+        const {data} = this.state;
         return (
             <div className="w-full">
 
@@ -53,48 +61,98 @@ export class AuthorRequests extends Component {
                     </tr>
 
                     </thead>
-                    <tbody className="">
-                    <tr>
-                        <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
-                            <div className="flex items-center">
-                                <div className="w-11 h-11 flex-shrink-0">
-                                    <img className="h-11 rounded-full w-11"
-                                         src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                         alt=""/>
-                                </div>
 
-                                <div className="ml-4">
-                                    <div className="text-gray-900 font-medium">Tharindu Dilan</div>
-                                    <div className="mt-1 text-gray-400">Dilanmallawarachchi@gmail.com</div>
-                                </div>
-                            </div>
-                        </td>
+                    {
+                        this.state.authors && this.state.data.length > 0 && (
+                            <tbody className="">
 
-                        <td className="px-3 py-5 text-sm text-gray-800">
-                            <div className="text-gray-800">07X XXXX XXX</div>
-                        </td>
+                            {
+                                data.slice(0, 5).map((user: any) => (
+                                    <tr key={user._id}>
+                                        <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
+                                            <div className="flex items-center">
+                                                <div className="w-11 h-11 flex-shrink-0">
+                                                    <img className="h-11 rounded-full w-11"
+                                                         src={user.image}
+                                                         alt=""/>
+                                                </div>
 
-                        <td className="px-3 py-5 text-sm text-gray-800">
+                                                <div className="ml-4">
+                                                    <div className="text-gray-900 font-medium">{user.name}</div>
+                                                    <div className="mt-1 text-gray-400">{user.email}</div>
+                                                </div>
+                                            </div>
+                                        </td>
 
-                            <button
-                                className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                type="button"
-                            >
-                                <FontAwesomeIcon className="cursor-pointer text-green-700"
-                                                 icon={faCheck}></FontAwesomeIcon>
-                            </button>
-                            <button
-                                className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                                type="button"
-                            >
-                                <FontAwesomeIcon className="cursor-pointer text-red-700" icon={faX}></FontAwesomeIcon>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
+                                        <td className="px-3 py-5 text-sm text-gray-800">
+                                            <div className="text-gray-800">{user.contact}</div>
+                                        </td>
+
+                                        <td className="px-3 py-5 text-sm text-gray-800">
+
+                                            <button
+                                                className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                type="button"
+                                                onClick={() => this.acceptRequest(user.email, "author")}
+                                            >
+                                                <FontAwesomeIcon className="cursor-pointer text-green-700"
+                                                                 icon={faCheck}></FontAwesomeIcon>
+                                            </button>
+                                            <button
+                                                className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
+                                                type="button"
+                                                onClick={() => this.acceptRequest(user.email, "rejected")}
+                                            >
+                                                <FontAwesomeIcon className="cursor-pointer text-red-700"
+                                                                 icon={faX}></FontAwesomeIcon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
+                        )
+                    }
+
+                    {
+                        !this.state.authors && (
+                            <tbody>
+                                <AuthorRowSkeleton></AuthorRowSkeleton>
+                            </tbody>
+                        )
+                    }
+
                 </table>
+
+                {
+                    this.state.authors && this.state.data.length === 0 && (
+                        <div className="w-full h-96 text-xl text-center flex justify-center items-center">
+                            No content to show
+                        </div>
+                    )
+                }
+
 
             </div>
         );
+    }
+
+    acceptRequest = (email: string, type: string) => {
+        try {
+            this.api.post('users/swap', {
+                email: email,
+                type: type
+            }).then((res: { data: any }) => {
+                const jsonData = res.data;
+                if (jsonData) {
+                    localStorage.setItem('insightUser', JSON.stringify(jsonData));
+                    this.fetchData();
+                } else {
+                    alert("You dont have an account")
+                }
+            });
+        } catch (e) {
+
+        }
     }
 }
