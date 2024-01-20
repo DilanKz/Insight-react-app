@@ -11,9 +11,14 @@ export class Home extends Component {
     private api;
     constructor(props: {} | Readonly<{}>) {
         super(props);
-        this.api=axios.create({baseURL:`http://localhost:4000`})
+        this.api=axios.create({baseURL:`http://localhost:4000`});
+
+        let item:any = localStorage.getItem('insightUser');
+        let loggedUser = JSON.parse(item);
+
         this.state = {
             data: [],
+            user:loggedUser,
             article:false,
             authors:false,
         }
@@ -52,10 +57,13 @@ export class Home extends Component {
 
     render() {
         //@ts-ignore
-        const {data,authors,article} = this.state;
+        const {data,authors,article,user} = this.state;
+
+        if (user !=null && user.accountType === 'admin') {
+            return null;
+        }
 
         return (
-
             <div>
 
                 <div className="bg-tertiary pb-3">
@@ -249,8 +257,6 @@ export class Home extends Component {
                 </div>
             </div>
 
-
-        )
-            ;
+        );
     }
 }
