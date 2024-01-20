@@ -11,8 +11,8 @@ export class AdminContent extends Component {
 
                     <Route Component={AdminDashboard} path="dashboard"></Route>
                     <Route Component={AuthorRequests} path="requests"></Route>
-                    <Route Component={AdminDashboard} path="addTag"></Route>
-                    <Route Component={AdminDashboard} path="addTag"></Route>
+                    <Route Component={AdminDashboard} path="delete"></Route>
+                    <Route Component={AdminDashboard} path="add"></Route>
 
                 </Routes>
             </div>
