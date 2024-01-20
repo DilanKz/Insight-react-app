@@ -118,7 +118,7 @@ export class UserGeneralInformation extends Component<{}, GeneralInfoStates> {
 
                     <div className="h-full w-full pl-4">
 
-                        {this.state.user !== null && this.state.user.accountType === 'regular' && (
+                        {this.state.user?.accountType === 'regular' || (this.state.user?.accountType === 'rejected') && (
                             <div className="w-11/12 h-fit bg-gray-50 mt-24 rounded-md p-4 shadow-xl">
 
                                 <h2 className="font-bold pb-3">Upgrade your account to Author.</h2>
@@ -130,7 +130,9 @@ export class UserGeneralInformation extends Component<{}, GeneralInfoStates> {
                                     capabilities. Share your thoughts, insights, and creativity with our community.
                                 </p>
 
-                                <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4">
+                                <button className="bg-secondary text-white rounded-md px-4 py-2 mt-4"
+                                        onClick={this.requestAuthor}
+                                >
                                     <FontAwesomeIcon icon={faUserEdit} className="mr-2"/>
                                     Upgrade
                                 </button>
@@ -225,6 +227,7 @@ export class UserGeneralInformation extends Component<{}, GeneralInfoStates> {
                 const jsonData = res.data;
                 if (jsonData) {
                     localStorage.setItem('insightUser', JSON.stringify(jsonData));
+                    alert("Account updated")
                 } else {
                     alert("You dont have an account")
                 }
@@ -234,6 +237,33 @@ export class UserGeneralInformation extends Component<{}, GeneralInfoStates> {
             });
         } catch (error) {
             console.error('Error submitting data:', error);
+        }
+
+    }
+
+    requestAuthor = () => {
+        if (this.state.user.image && this.state.user.address && this.state.user.contact) {
+
+            if (this.state.user.accountType!=='regular'||this.state.user.accountType!=='rejected'){
+                try {
+                    this.api.post('users/swap', {
+                        email: this.state.user.email,
+                        type: 'requested'
+                    }).then((res: { data: any }) => {
+                        const jsonData = res.data;
+                        if (jsonData) {
+                            localStorage.setItem('insightUser', JSON.stringify(jsonData));
+                        } else {
+                            alert("You dont have an account")
+                        }
+                    });
+                } catch (e) {
+
+                }
+            }
+
+        }else {
+            alert("Please update your profile before request account upgrade")
         }
 
     }
