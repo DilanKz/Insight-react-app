@@ -86,7 +86,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                             </Link>
                         )}
 
-                        {this.state.user !== null && this.state.user.accountType === 'regular' && (
+                        {this.state.user?.accountType === 'regular' || ['rejected', 'requested'].includes(this.state.user?.accountType)&& (
                             <Link className="" to="/user/general">
                                 <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
                                     {this.state.user.name}
@@ -97,6 +97,15 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
 
                         {this.state.user !== null && this.state.user.accountType === 'author' && (
                             <Link className="" to="/user/general">
+                                <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
+                                    {this.state.user.name}
+                                    <FontAwesomeIcon className="pl-4" icon={faUser} />
+                                </button>
+                            </Link>
+                        )}
+
+                        {this.state.user !== null && this.state.user.accountType === 'admin' && (
+                            <Link className="" to="/admin/dashboard">
                                 <button className="flex items-center md:pb-1 mb-2 bg-[#27374D] text-white px-3 py-1 text-[16px] rounded-[6px] sm:ml-7 ml-7 mr-6">
                                     {this.state.user.name}
                                     <FontAwesomeIcon className="pl-4" icon={faUser} />
