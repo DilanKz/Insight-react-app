@@ -128,11 +128,11 @@ const userController = {
 
     },
     swapAccount: async function(req,res,next){
-        const {id, type} = req.body;
+        const {email, type} = req.body;
 
         try {
             const updatedUser = await User.findOneAndUpdate(
-                {_id: id},
+                {email: email},
                 {
                     $set: {
                         accountType:type
