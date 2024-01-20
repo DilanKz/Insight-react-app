@@ -5,6 +5,7 @@ import {DefaultLayout} from "./view/common/DefaultLayout/DefaultLayout";
 import {Login} from "./view/pages/Login/Login";
 import {SignUp} from "./view/pages/SignUp/SignUp";
 import {AccountCenter} from "./view/pages/UserAccountCenter/Dashboard/AccountCenter";
+import {AdminAccount} from "./view/pages/AdminPages/AdminNavbar/AdminAccount";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
               <Route path="/sign" Component={Login}></Route>
               <Route path="/signUp" Component={SignUp}></Route>
               <Route path="/user/*" Component={AccountCenter}></Route>
+              <Route path="/Admin/*" Component={AdminAccount}></Route>
           </Routes>
       </BrowserRouter>
   );
