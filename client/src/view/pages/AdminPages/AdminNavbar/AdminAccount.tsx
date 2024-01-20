@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faArrowRightFromBracket,
@@ -12,13 +12,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {AdminContent} from "../AdminContent/AdminContent";
 
-export class AdminAccount extends Component {
+interface AdminAccountStates {
+    logOut:boolean
+}
+
+export class AdminAccount extends Component<{},AdminAccountStates> {
+
+    constructor(props:{}) {
+        super(props);
+        this.state={
+            logOut:false
+        }
+    }
     render() {
         return (
             <div className={"flex overflow-hidden"}>
 
                 <div className="h-screen lg:w-[18vw] pt-5 shadow-xl flex flex-col ">
-                    <h1 className="text-secondary font-bold text-[2rem] pl-4">INSIGHT</h1>
+                    <Link to="/">
+                        <h1 className="text-secondary font-bold text-[2rem] pl-4">INSIGHT</h1>
+                    </Link>
 
                     <div className="flex-col flex justify-between h-full">
                         <div className="pt-5 mt-2">
@@ -72,7 +85,7 @@ export class AdminAccount extends Component {
                                     Manage Article
                                 </p>
 
-                                <Link to="addTag">
+                                <Link to="delete">
                                     <div className="font-medium text-sm items-center rounded-lg text-gray-900 px-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
                                     >
@@ -122,7 +135,7 @@ export class AdminAccount extends Component {
 
                         <div className="mb-2 pl-6 font-medium text-sm items-center rounded-lg text-gray-900 pr-4 py-2.5 flex
                                                         transition-all duration-200 hover:bg-gray-200 group cursor-pointer"
-                            /*onClick={this.logOutButtonOnClick}*/
+                            onClick={this.logOutButtonOnClick}
                         >
                             <span>Log Out</span>
                             <span className="justify-center items-center flex">
@@ -148,7 +161,18 @@ export class AdminAccount extends Component {
 
                 </div>
 
+                {
+                    this.state.logOut && <Navigate to='/' replace={true}/>
+                }
+
             </div>
         );
     }
+
+    logOutButtonOnClick = () => {
+        localStorage.removeItem('insightUser');
+        this.setState({
+            logOut: true
+        });
+    };
 }
