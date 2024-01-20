@@ -4,6 +4,7 @@ import bgImage from "../../../images/bg.jpg"
 import axios from "axios";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {CookieParser} from "../../../util/CookieParser";
 
 interface LoginStates {
     isPwClicked: boolean;
@@ -228,6 +229,7 @@ export class Login extends Component<{}, LoginStates> {
                     alert("You dont have an account")
                 } else {
                     localStorage.setItem('insightUser', JSON.stringify(jsonData));
+                    CookieParser.setCookies(JSON.stringify(jsonData),'insightUser');
                     // window.location.href = '/';
                     this.setState({
                         navigateToHome: true,
