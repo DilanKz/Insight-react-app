@@ -5,7 +5,9 @@ let userController = require('../controller/UserController');
 router.post('/login', userController.getUserCredentials);
 router.post('/register', userController.saveUserCredentials);
 router.post('/reset', userController.getOTP);
+router.post('/requested', userController.getRequested);
 router.post('/change', userController.updatePassword);
 router.post('/update', userController.updateCredentials);
+router.post('/swap', userController.swapAccount);
 
 module.exports = router;
