@@ -5,6 +5,7 @@ const articleController=require('../controller/ArticleController')
 router.get('/all', articleController.getAllArticles);
 router.post('/add', articleController.postArticle);
 router.post('/from', articleController.getAllFromAuthor);
+router.get('/requested', articleController.getAllRequested);
 router.delete('/remove/:id', articleController.deleteArticle);
 router.put('/request/:id', articleController.askForDelete);
 
