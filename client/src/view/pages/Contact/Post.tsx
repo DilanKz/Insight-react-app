@@ -15,10 +15,10 @@ export class Post extends Component {
                 <CategoryContainer></CategoryContainer>
                 <PaginatedContainer></PaginatedContainer>
 
-                {/*<ArticleContainerSkeleton></ArticleContainerSkeleton>*/}
-                {/*<CategoryContainerSkeleton></CategoryContainerSkeleton>*/}
+                {/*<ArticleContainerSkeleton></ArticleContainerSkeleton>
+                <CategoryContainerSkeleton></CategoryContainerSkeleton>
 
-                {/*<ArticleSkeleton></ArticleSkeleton>*/}
+                <ArticleSkeleton></ArticleSkeleton>*/}
 
             </div>
         );
