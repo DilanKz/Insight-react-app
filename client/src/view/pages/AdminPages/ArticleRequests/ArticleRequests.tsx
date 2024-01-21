@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {RowSkeleton} from "../UserAccountCenter/ArticleList/RowSkeleton";
-import img from "../../../images/selectImage.jpg";
+import {RowSkeleton} from "../../UserAccountCenter/ArticleList/RowSkeleton";
+import img from "../../../../images/selectImage.jpg";
 import moment from "moment/moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faRotateRight, faTrash} from "@fortawesome/free-solid-svg-icons";
