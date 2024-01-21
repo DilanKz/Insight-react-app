@@ -2,7 +2,7 @@ import {Component} from "react";
 import {Route, Routes} from "react-router-dom";
 import {AdminDashboard} from "../AdminDashboard/AdminDashboard";
 import {AuthorRequests} from "../AuthorRequests/AuthorRequests";
-import {ArticleRequests} from "../ArticleRequests";
+import {ArticleRequests} from "../ArticleRequests/ArticleRequests";
 
 export class AdminContent extends Component {
     render() {
