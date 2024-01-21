@@ -401,6 +401,13 @@ export class PostArticle extends Component <{}, quilText> {
             }).then((res: { data: any }) => {
                 const jsonData = res.data;
                 alert(jsonData);
+                this.setState({
+                    showPostPopup:false,
+                    title: "",
+                    textBody: "",
+                    currentTags: [],
+                    image: "",
+                })
             }).catch((error: any) => {
                 console.error('Axios Error', error);
             });
