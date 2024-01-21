@@ -40,7 +40,7 @@ export class Article_Viewer extends Component<{}, {}> {
                         </div>
                     </div>
 
-                    <div className="md:w-[30%] w-[35rem] h-[26rem] rounded-2xl">
+                    <div className="md:w-[30%] w-[35rem] h-[40rem] rounded-2xl">
 
                         <div className="md:w-full h-full bg-gray-200 rounded-2xl relative transform"
                              style={{ background: `url('${this.Article.image}')`,backgroundSize: 'cover',
