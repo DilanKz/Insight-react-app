@@ -25,7 +25,11 @@ const articleController = {
     getAllFromAuthor: async function (req, res, next) {
         let id = req.body.id;
         let articles = await Article.find({author: id});
-        console.log(articles);
+        res.send(articles);
+    },
+
+    getAllRequested: async function (req, res, next) {
+        let articles = await Article.find({availability: "requested"});
         res.send(articles);
     },
 
