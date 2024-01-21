@@ -6,60 +6,77 @@ import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import {ArticleSkeleton} from "../../common/Article/ArticleSkeleton";
 
-export class Home extends Component {
-    private slider:any;
+interface HomeStates {
+    data: any
+    user: any,
+    article: boolean,
+    authors: boolean,
+}
+
+export class Home extends Component<{}, HomeStates> {
+    private static articles: any = [];
+    private slider: any;
     private api;
+
     constructor(props: {} | Readonly<{}>) {
         super(props);
-        this.api=axios.create({baseURL:`http://localhost:4000`});
+        this.api = axios.create({baseURL: `http://localhost:4000`});
 
-        let item:any = localStorage.getItem('insightUser');
+        let item: any = localStorage.getItem('insightUser');
         let loggedUser = JSON.parse(item);
 
         this.state = {
             data: [],
-            user:loggedUser,
-            article:false,
-            authors:false,
+            user: loggedUser,
+            article: false,
+            authors: false,
         }
     }
 
     componentDidMount() {
         this.fetchData();
-        this.slider=document.getElementById('slider');
+        this.slider = document.getElementById('slider');
     }
 
     fetchData = async () => {
-        this.setState({article:false,authors:false});
-        try {
+
+        if (Home.articles === undefined || Home.articles.length === 0) {
+
+            this.setState({article: false, authors: false});
             try {
-                this.api.get('/articles/all')
-                    .then((res: { data: any }) => {
-                        const jsonData = res.data;
-                        this.setState({data: jsonData,article:true});
-                    }).catch((error: any)=> {
-                    console.error('Axios Error:', error)
-                });
-            } catch (error) {
-                console.log('Error fetching data: ', error)
+                try {
+                    this.api.get('/articles/all')
+                        .then((res: { data: any }) => {
+                            const jsonData = res.data;
+
+                            this.setState({data: jsonData, article: true});
+
+                            Home.articles = jsonData
+
+                        }).catch((error: any) => {
+                        console.error('Axios Error:', error)
+                    });
+                } catch (error) {
+                    console.log('Error fetching data: ', error)
+                }
+            } catch (e) {
+                console.log("error");
             }
-        } catch (e) {
-            console.log("error");
         }
     }
 
-    slideLeft=()=>{
+    slideLeft = () => {
         this.slider.scrollLeft = this.slider.scrollLeft - 600;
     }
-    slideRight=()=>{
+    slideRight = () => {
         this.slider.scrollLeft = this.slider.scrollLeft + 600;
     }
 
     render() {
         //@ts-ignore
-        const {data,authors,article,user} = this.state;
+        const {data, authors, article, user} = this.state;
 
-        if (user !=null && user.accountType === 'admin') {
+        if (user != null && user.accountType === 'admin') {
             return null;
         }
 
@@ -154,20 +171,22 @@ export class Home extends Component {
                             <div id="slider"
                                  className="w-full h-full overflow-y-hidden overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scroll-bar">
 
-                                {article ? (
-                                    data.slice(0, 5).map((article: any) => (
+
+                                {Home.articles.length > 0 && (
+                                    Home.articles.slice(0, 5).map((article: any) => (
                                         <div key={article._id} className="inline-block cursor-pointer">
                                             <Article key={article.id} data={article}/>
                                         </div>
                                     ))
-                                ) : (
-                                    Array.from({ length: 5 }).map((_, index) => (
+                                )}
+
+                                {Home.articles.length === 0 && (
+                                    Array.from({length: 4}).map((_, index) => (
                                         <div key={index} className="inline-block cursor-pointer">
-                                            <ArticleSkeleton />
+                                            <ArticleSkeleton/>
                                         </div>
                                     ))
                                 )}
-
 
 
                             </div>
@@ -196,14 +215,16 @@ export class Home extends Component {
                             className="flex flex-wrap justify-evenly items-start transition-all ease-in-out gap-5 mt-10">
 
 
-                            {article ? (
-                                data.slice(0, 9).map((article: any) => (
+                            {Home.articles.length > 0 && (
+                                Home.articles.slice(0, 9).map((article: any) => (
                                     <Article key={article._id} data={article}/>
                                 ))
-                            ) : (
-                                Array.from({ length: 9 }).map((_, index) => (
+                            )}
+
+                            {Home.articles.length === 0 && (
+                                Array.from({length: 9}).map((_, index) => (
                                     <div key={index} className="inline-block cursor-pointer">
-                                        <ArticleSkeleton />
+                                        <ArticleSkeleton/>
                                     </div>
                                 ))
                             )}
