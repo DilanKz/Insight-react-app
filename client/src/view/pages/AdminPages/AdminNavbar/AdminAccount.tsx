@@ -8,7 +8,8 @@ import {
     faPen,
     faTasks,
     faTrash,
-    faUser
+    faUser,
+    faSlidersH
 } from "@fortawesome/free-solid-svg-icons";
 import {AdminContent} from "../AdminContent/AdminContent";
 
@@ -119,12 +120,12 @@ export class AdminAccount extends Component<{},AdminAccountStates> {
                                                         <span className="justify-center items-center flex">
                                                             <span className="items-center justify-center flex">
                                                                 <FontAwesomeIcon className="pr-3 pl-2"
-                                                                                 icon={faPen}/>
+                                                                                 icon={faSlidersH}/>
                                                             </span>
                                                         </span>
                                                     </span>
                                                 </span>
-                                        <span>Add tags</span>
+                                        <span>View tags</span>
                                     </div>
                                 </Link>
 
