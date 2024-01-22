@@ -238,7 +238,7 @@ export class PostArticle extends Component <{}, quilText> {
                             className="w-full h-fit bg-gray-50 px-4 overflow-x-visible max-h-[300px] overflow-y-scroll no-scroll-bar rounded-b-xl">
                             {tags
                                 .filter(tag =>
-                                    search !== '' && tag.name.toLowerCase().includes(search.toLowerCase())
+                                    search !== '' && tag.name.toLowerCase().startsWith(search.toLowerCase())
                                 )
                                 .map(tag => (
                                     <div key={tag._id}>
