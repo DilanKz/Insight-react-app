@@ -1,7 +1,7 @@
 import {Component} from "react";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "../../pages/Home/Home";
-import {Post} from "../../pages/Contact/Post";
+import {Post} from "../../pages/posts/Post";
 import {Menu} from "../../pages/Menu/Menu";
 import {Article_Viewer} from "../../pages/Article_Viewer/Article_Viewer";
 import './mainContent.css';
