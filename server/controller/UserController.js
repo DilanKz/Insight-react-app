@@ -145,6 +145,16 @@ const userController = {
             return res.status(200).json({message:'error changing account'});
         }
 
+    },
+    getOne:async function(req,res,next){
+
+        try {
+            let id = req.body._id;
+            const user = await User.findOne({_id:id});
+            return res.status(200).json(user);
+        }catch (e) {
+            return res.status(200).json({message:'error finding account'});
+        }
     }
 
     /*updateCredentials: async function (req, res, next) {
