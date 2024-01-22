@@ -4,45 +4,28 @@ import {Article} from "../../../common/Article/Article";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
-export class PaginatedContainer extends Component {
-    private api: any;
+interface Props {
+    articles:[]
+}
 
-    constructor(props: {}) {
+export class PaginatedContainer extends Component<Props> {
+
+    constructor(props: Props) {
         super(props);
-        this.api = axios.create({baseURL: "http://localhost:4000"});
         this.state = {
-            articles: [],
             pageSize: 4,
             currentPage: 1,
         };
     }
 
     componentDidMount() {
-        this.fetchData();
         this.updatePageSize();
+        console.log(this.props.articles)
         window.addEventListener("resize", this.updatePageSize);
     }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updatePageSize);
-    }
-
-    fetchData = async () => {
-        try {
-            try {
-                this.api.get('/articles/all')
-                    .then((res: { data: any }) => {
-                        const jsonData = res.data;
-                        this.setState({articles: jsonData});
-                    }).catch((error: any) => {
-                    console.error('Axios Error:', error)
-                });
-            } catch (error) {
-                console.log('Error fetching data: ', error)
-            }
-        } catch (e) {
-            console.log("error");
-        }
     }
 
     updatePageSize = () => {
@@ -63,7 +46,8 @@ export class PaginatedContainer extends Component {
 
     render() {
         //@ts-ignore
-        const {articles, pageSize, currentPage} = this.state;
+        const {pageSize, currentPage} = this.state;
+        const {articles}=this.props;
         const startIndex = (currentPage - 1) * pageSize;
         const endIndex = startIndex + pageSize;
         const paginatedArticles = articles.slice(startIndex, endIndex);
