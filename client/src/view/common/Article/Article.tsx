@@ -1,12 +1,20 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import * as url from "url";
+import axios from "axios";
 
 interface ArticleProps {
     data: any;
 }
 
 export class Article extends Component<ArticleProps> {
+
+    private api: any;
+
+    constructor(props: ArticleProps) {
+        super(props);
+
+        this.api = axios.create({baseURL: `http://localhost:4000`});
+    }
 
     render() {
 
@@ -18,8 +26,10 @@ export class Article extends Component<ArticleProps> {
 
                     <div className="w-[310px] h-[400px] bg-gray-200 rounded-2xl
                                 relative transform hover:translate-y-[-8px] duration-300 transition-transform ease-in-out"
-                         style={{ background: `url('${data.image}')`,backgroundSize: 'cover',
-                             backgroundPosition: 'center', }}
+                         style={{
+                             background: `url('${data.image}')`, backgroundSize: 'cover',
+                             backgroundPosition: 'center',
+                         }}
                     >
 
                     </div>
@@ -40,9 +50,14 @@ export class Article extends Component<ArticleProps> {
                 </div>
                 <div className="w-[310px] h-16 mt-3 flex flex-wrap">
 
-                    <Link to="/Article" onClick={() => { this.setArticleStaticValue(data); window.scrollTo(0, 0); }}>
+                    <Link to="/Article" onClick={() => {
+                        this.setArticleStaticValue(data);
+                        window.scrollTo(0, 0);
+                    }}>
 
-                        <h3 className="text-2xl cursor-pointer hover:underline overflow-hidden whitespace-normal">
+                        <h3 className="text-2xl cursor-pointer hover:underline overflow-hidden whitespace-normal"
+                            onClick={()=>this.updateClickCount(data._id)}
+                        >
                             {data.title}
                         </h3>
 
@@ -58,5 +73,19 @@ export class Article extends Component<ArticleProps> {
         const jsonData = JSON.stringify(data);
         localStorage.setItem('articleData', jsonData);
         console.log(JSON.parse(jsonData));
+    }
+
+    private updateClickCount(id: string) {
+        try {
+            this.api.put(`articles/clicked/${id}`)
+                .then((res: { data: any }) => {
+
+                    console.log('delete request has been sent to an admin')
+                }).catch((error: any) => {
+                console.error('Error:', error);
+            });
+        } catch (error) {
+            console.log('Error fetching data: ', error)
+        }
     }
 }
