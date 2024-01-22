@@ -3,6 +3,7 @@ var router = express.Router();
 const articleController=require('../controller/ArticleController')
 /* GET all articles listing. */
 router.get('/all', articleController.getAllArticles);
+router.get('/famous', articleController.getMostClickedArticles);
 router.post('/add', articleController.postArticle);
 router.post('/from', articleController.getAllFromAuthor);
 router.get('/requested', articleController.getAllRequested);
