@@ -105,7 +105,7 @@ export class AdminAccount extends Component<{},AdminAccountStates> {
                                 </Link>
 
                             </div>
-                            <div>
+                            {/*<div>
                                 <p className="px-4 pt-10 pb-3 font-semibold text-xs tracking-widest text-gray-400 uppercase select-none">
                                     <FontAwesomeIcon className="pr-3" icon={faTasks}></FontAwesomeIcon>
                                     Manage Tags
@@ -129,7 +129,7 @@ export class AdminAccount extends Component<{},AdminAccountStates> {
                                     </div>
                                 </Link>
 
-                            </div>
+                            </div>*/}
 
 
                         </div>
