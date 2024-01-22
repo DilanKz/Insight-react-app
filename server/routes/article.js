@@ -8,5 +8,6 @@ router.post('/from', articleController.getAllFromAuthor);
 router.get('/requested', articleController.getAllRequested);
 router.delete('/remove/:id', articleController.deleteArticle);
 router.put('/request/:id', articleController.askForDelete);
+router.put('/clicked/:id', articleController.updateViews);
 
 module.exports = router;
