@@ -83,11 +83,11 @@ export class Home extends Component<{}, HomeStates> {
         return (
             <div>
 
-                <div className="bg-tertiary pb-3">
+                <div className=" pb-3">
                     <div className="h-full w-screen px-10 py-2">
                         <h1 className="text-[#27374D] xl:text-[10rem] lg:text-9xl md:text-9xl
                 sm:text-8xl md:pt-16 pt-16 text-7xl pl-0">
-                            Read, Express, <span className="text-white">Insight</span></h1>
+                            Read, Express, <span className="text-tertiary">Insight</span></h1>
 
                         <div className="flex justify-start pt-5 flex-wrap">
                             <form className="md:w-1/2 w-full flex items-center pt-4">
@@ -98,14 +98,14 @@ export class Home extends Component<{}, HomeStates> {
 
                                     </div>
                                     <input type="text" id="simple-search"
-                                           className="outline-0 py-4 text-2xl rounded-full text-[#27374D] block w-full ps-10"
+                                           className="outline-0 ring-2 ring-tertiary py-4 text-2xl rounded-full text-[#27374D] block w-10/12 ps-10"
                                            placeholder="Search for articles..." required/>
                                 </div>
 
-                                <button type="button" className="bg-[#27374D] w-[150px] text-xl
+                                {/*<button type="button" className="bg-[#27374D] w-[150px] text-xl
                     text-white py-4 ml-2 rounded-full relative left-[-100px]">
                                     <span className="inline pr-2">Search</span>
-                                </button>
+                                </button>*/}
                             </form>
                             <p className='text-lg mt-4 md:w-1/2 w-full'>
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. At blanditiis consequun
