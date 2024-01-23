@@ -1,6 +1,5 @@
 import {Component} from "react";
 import {ArticleContainer} from "../ArticlePage/ArticleContainer/ArticleContainer";
-import {CategoryContainer} from "../ArticlePage/Category/CategoryContainer";
 import {PaginatedContainer} from "../ArticlePage/PaginatedContainer/PaginatedContainer";
 import axios from "axios";
 import {ArticleContainerSkeleton} from "../ArticlePage/ArticleContainer/ArticleContainerSkelaton";
@@ -19,6 +18,7 @@ export class Post extends Component <{}, states> {
     private static famousArticle: any = '';
     private static allArticles: any = '';
     private static tag: any = 'all';
+    private static famousAuthor: any = '';
     private api: any;
 
     constructor(props: {}) {
@@ -49,10 +49,6 @@ export class Post extends Component <{}, states> {
                             this.fetchFamousAuthor(firstArticle.author);
                             Post.famousArticles = jsonData
                             Post.famousArticle = firstArticle
-
-                            this.setState({
-                                dataLoaded: true
-                            })
 
                         }).catch((error: any) => {
                         console.error('Axios Error:', error)
@@ -99,9 +95,12 @@ export class Post extends Component <{}, states> {
                     _id:id
                 }).then((res: { data: any }) => {
                     const jsonData = res.data;
+                    Post.famousAuthor=jsonData;
+
                     this.setState({
-                        famousAuthor:jsonData
+                        dataLoaded: true
                     })
+
                 }).catch((error: any) => {
                     console.error('Axios Error:', error)
                 });
@@ -120,7 +119,7 @@ export class Post extends Component <{}, states> {
 
                 {this.state.dataLoaded ? (
                     <ArticleContainer articles={Post.famousArticles} firstArticle={Post.famousArticle}
-                                      famousAuthor={this.state.famousAuthor}></ArticleContainer>
+                                      famousAuthor={Post.famousAuthor}></ArticleContainer>
                 ) : (
                     <ArticleContainerSkeleton></ArticleContainerSkeleton>
                 )}
