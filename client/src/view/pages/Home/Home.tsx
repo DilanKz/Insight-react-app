@@ -83,11 +83,11 @@ export class Home extends Component<{}, HomeStates> {
         return (
             <div>
 
-                <div className=" pb-3">
+                <div className="bg-tertiary pb-3">
                     <div className="h-full w-screen px-10 py-2">
                         <h1 className="text-[#27374D] xl:text-[10rem] lg:text-9xl md:text-9xl
                 sm:text-8xl md:pt-16 pt-16 text-7xl pl-0">
-                            Read, Express, <span className="text-tertiary">Insight</span></h1>
+                            Read, Express, <span className="text-white">Insight</span></h1>
 
                         <div className="flex justify-start pt-5 flex-wrap">
                             <form className="md:w-1/2 w-full flex items-center pt-4">
