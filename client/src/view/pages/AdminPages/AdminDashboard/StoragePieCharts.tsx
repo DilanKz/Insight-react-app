@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import {AdminDashboard} from "../AdminDashboard/AdminDashboard";
+import {AdminDashboard} from "./AdminDashboard";
 
 interface StorageData {
     name: string;
@@ -8,8 +8,8 @@ interface StorageData {
 }
 
 const data: StorageData[] = [
-    { name: 'Used Storage', value: AdminDashboard.data.dataSizeMB },
-    { name: 'Free Storage', value: AdminDashboard.data.mbLeft },
+    { name: 'Used Storage', value: 100 },
+    { name: 'Free Storage', value: 180 },
 ];
 
 const COLORS = ['#0088FE', '#00C49F'];
