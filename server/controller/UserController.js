@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 let mailSender = require('../utils/mailSender');
 let otpGenerator = require('../utils/otpGenerator');
+const mongoose = require('mongoose');
 
 const userController = {
     getUserCredentials: async function (req, res, next) {
@@ -155,7 +156,7 @@ const userController = {
         }catch (e) {
             return res.status(200).json({message:'error finding account'});
         }
-    }
+    },
 
     /*updateCredentials: async function (req, res, next) {
         try {
@@ -202,6 +203,17 @@ const userController = {
         }
 
     }*/
+
+    getStats:async function(req,res,next){
+        const db = mongoose.connection.db;
+        const dbStats = await db.stats();
+
+        const storageSizeMB = dbStats.storageSize / (1024 * 1024);
+        const dataSizeMB = dbStats.dataSize / (1024 * 1024);
+        const mbLeft = storageSizeMB - dataSizeMB;
+
+        res.json({ storageSizeMB, dataSizeMB, mbLeft });
+    }
 }
 
 module.exports = userController
