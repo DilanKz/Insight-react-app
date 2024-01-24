@@ -10,5 +10,6 @@ router.post('/change', userController.updatePassword);
 router.post('/update', userController.updateCredentials);
 router.post('/swap', userController.swapAccount);
 router.post('/getOne', userController.getOne);
+router.get('/stats', userController.getStats);
 
 module.exports = router;
