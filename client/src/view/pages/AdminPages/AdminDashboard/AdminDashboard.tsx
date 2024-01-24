@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios, {AxiosInstance} from "axios";
 import StoragePieCharts from "./StoragePieCharts";
-// import {UserPieCharts} from "./UserPieCharts";
+import UserPieCharts from "./UserPieCharts";
 
 interface StorageData {
     storageSizeMB: number;
@@ -48,6 +48,28 @@ export class AdminDashboard extends Component {
             <div className={"w-full h-full relative pb-4"}>
                 <h2 className="text-2xl font-bold sm:text-xl pt-8 ps-3 w-max">Dashboard</h2>
 
+                <div className={"w-full h-1/4 py-10 px-4 flex justify-between"}>
+                    <div
+                        className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
+                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                    </div>
+                    <div
+                        className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
+                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                    </div>
+                    <div
+                        className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
+                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                    </div>
+                    <div
+                        className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
+                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                    </div>
+                </div>
 
                 <div className={"w-full h-1/2 pt-2 p-4 flex justify-between"}>
                     <div className="w-[48%] rounded-xl h-full drop-shadow-md bg-white">
@@ -55,17 +77,23 @@ export class AdminDashboard extends Component {
                         <StoragePieCharts></StoragePieCharts>
                     </div>
                     <div className="w-[48%] rounded-xl h-full drop-shadow-md bg-white">
-                        <h1 className={"font-bold text-gray-800 text-center pt-2"}>Database stats</h1>
-                        {/*<UserPieCharts></UserPieCharts>*/}
+                        <h1 className={"font-bold text-gray-800 text-center pt-2"}>User Base</h1>
+                        <UserPieCharts></UserPieCharts>
                     </div>
                 </div>
 
-                <div className={"w-full h-1/4 bg-tertiary pt-2"}>
+                <div className={"w-full h-1/4 py-10 px-4 flex justify-between"}>
+                    <div
+                        className="w-1/2 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
+                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                    </div>
 
-                </div>
-
-                <div className={"w-full h-1/4 pt-2"}>
-
+                    <div
+                        className="w-1/3 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
+                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                    </div>
                 </div>
 
             </div>
