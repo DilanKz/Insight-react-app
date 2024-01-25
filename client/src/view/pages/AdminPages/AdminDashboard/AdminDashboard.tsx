@@ -51,22 +51,22 @@ export class AdminDashboard extends Component {
                 <div className={"w-full h-1/4 py-10 px-4 flex justify-between"}>
                     <div
                         className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
-                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-5xl font-bold text-orange-600"}>10</h2>
                         <h2 className={"w-max text-xl font-bold"}>Users</h2>
                     </div>
                     <div
                         className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
-                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
-                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                        <h2 className={"w-max text-5xl font-bold text-purple-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Authors</h2>
                     </div>
                     <div
                         className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
-                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
-                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
+                        <h2 className={"w-max text-5xl font-bold text-blue-600"}>10</h2>
+                        <h2 className={"w-max text-xl font-bold"}>Articles</h2>
                     </div>
                     <div
                         className="w-1/5 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
-                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
+                        <h2 className={"w-max text-5xl font-bold text-green-600"}>10</h2>
                         <h2 className={"w-max text-xl font-bold"}>Users</h2>
                     </div>
                 </div>
@@ -84,15 +84,8 @@ export class AdminDashboard extends Component {
 
                 <div className={"w-full h-1/4 py-10 px-4 flex justify-between"}>
                     <div
-                        className="w-1/2 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
-                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
-                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
-                    </div>
+                        className="w-full bg-gray-300 h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-lg">
 
-                    <div
-                        className="w-1/3 bg-white h-full rounded-xl flex items-center justify-evenly px-4 drop-shadow-md">
-                        <h2 className={"w-max text-5xl font-bold text-red-600"}>10</h2>
-                        <h2 className={"w-max text-xl font-bold"}>Users</h2>
                     </div>
                 </div>
 
