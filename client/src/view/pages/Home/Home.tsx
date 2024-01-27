@@ -5,13 +5,16 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import {ArticleSkeleton} from "../../common/Article/ArticleSkeleton";
+import {Link} from "react-router-dom";
 
 interface HomeStates {
     data: any;
     user: any;
     article: boolean;
     authors: boolean;
-    famous:boolean;
+    famous: boolean;
+    search: boolean;
+    searchText: string,
 }
 
 export class Home extends Component<{}, HomeStates> {
@@ -32,8 +35,11 @@ export class Home extends Component<{}, HomeStates> {
             user: loggedUser,
             article: false,
             authors: false,
-            famous:false,
+            famous: false,
+            search: false,
+            searchText: '',
         }
+        this.handleSearchInputOnChange = this.handleSearchInputOnChange.bind(this);
     }
 
     componentDidMount() {
@@ -66,6 +72,8 @@ export class Home extends Component<{}, HomeStates> {
             } catch (e) {
                 console.log("error");
             }
+        } else {
+            this.setState({data: Home.articles, article: true});
         }
     }
 
@@ -87,9 +95,18 @@ export class Home extends Component<{}, HomeStates> {
             } catch (e) {
                 console.log("error");
             }
-        }else {
+        } else {
             this.setState({famous: true});
         }
+    }
+
+    handleSearchInputOnChange(event: { target: { value: any; name: any; } }) {
+        const target = event.target;
+        const value = target.value;
+
+        this.setState({
+            searchText: value
+        });
     }
 
     slideLeft = () => {
@@ -99,9 +116,25 @@ export class Home extends Component<{}, HomeStates> {
         this.slider.scrollLeft = this.slider.scrollLeft + 600;
     }
 
+    openSearch = () => {
+        this.setState({
+            search: true
+        });
+    }
+
+    closeSearch = () => {
+        this.setState({
+            search: false
+        });
+    }
+
     render() {
-        //@ts-ignore
-        const {data, authors, article, user} = this.state;
+
+        const {search, user, searchText, data} = this.state;
+
+        const filteredArticles = searchText.trim() === '' ? [] : data.filter((article: any) =>
+            article.title.toLowerCase().includes(searchText.toLowerCase())
+        );
 
         if (user != null && user.accountType === 'admin') {
             return null;
@@ -119,15 +152,48 @@ export class Home extends Component<{}, HomeStates> {
                         <div className="flex justify-start pt-5 flex-wrap">
                             <form className="md:w-1/2 w-full flex items-center pt-4">
                                 <label htmlFor="simple-search" className="sr-only">Search</label>
-                                <div className="relative w-full">
-                                    <div
-                                        className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <div className=" w-full">
+                                    <input
+                                        type="text"
+                                        id="simple-search"
+                                        className={`outline-0 ring-0 ring-tertiary py-4 text-2xl rounded-md text-[#27374D] block w-10/12 ps-10 
+                                        ${search ? 'fixed top-20 left-0 right-0 m-auto w-2/5 z-[65] drop-shadow-md' : ''}`}
+                                        placeholder="Search for articles..."
+                                        value={this.state.searchText} required
+                                        onClick={this.openSearch}
+                                        onChange={this.handleSearchInputOnChange}
+                                    />
+
+                                </div>
+
+                                {search && (
+                                    <div className={"w-screen h-screen backdrop-blur-md fixed top-0 left-0 z-[60]"}
+                                         onClick={this.closeSearch}
+                                    >
 
                                     </div>
-                                    <input type="text" id="simple-search"
-                                           className="outline-0 ring-2 ring-tertiary py-4 text-2xl rounded-full text-[#27374D] block w-10/12 ps-10"
-                                           placeholder="Search for articles..." required/>
-                                </div>
+                                )}
+
+                                {search && (
+                                    <div
+                                        className={`max-h-80 overflow-y-scroll fixed top-[9.2rem] left-0 right-0 m-auto rounded-md z-[70] bg-white ${filteredArticles.length > 0 ? 'p-4' : 'p-0'} w-2/5`}>
+
+                                        {filteredArticles.map((article: any) => (
+                                            <div key={article._id}>
+                                                <Link to="/Article" onClick={() => {
+                                                    this.setArticleStaticValue(article);
+                                                    window.scrollTo(0, 0);
+                                                }}>
+                                                    <p className={"hover:border-gray-800 hover:text-gray-800 text-gray-600  " +
+                                                        "cursor-pointer text-xl py-4 border-b "}
+                                                       onClick={() => this.updateClickCount(article._id)}
+                                                    >{article.title}</p>
+
+                                                </Link>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
 
                                 {/*<button type="button" className="bg-[#27374D] w-[150px] text-xl
                     text-white py-4 ml-2 rounded-full relative left-[-100px]">
@@ -306,5 +372,26 @@ export class Home extends Component<{}, HomeStates> {
             </div>
 
         );
+    }
+
+    private setArticleStaticValue(data: any) {
+        //Get the current article and store it in browser local storage
+        const jsonData = JSON.stringify(data);
+        localStorage.setItem('articleData', jsonData);
+        console.log(JSON.parse(jsonData));
+    }
+
+    private updateClickCount(id: string) {
+        try {
+            this.api.put(`articles/clicked/${id}`)
+                .then((res: { data: any }) => {
+
+                    console.log('delete request has been sent to an admin')
+                }).catch((error: any) => {
+                console.error('Error:', error);
+            });
+        } catch (error) {
+            console.log('Error fetching data: ', error)
+        }
     }
 }
