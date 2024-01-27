@@ -24,7 +24,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
     }
 
     componentDidMount() {
-        console.log(this.state.user);
+        // console.log(this.state.user);
     }
 
     toggleMenu = () => {
