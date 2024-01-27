@@ -7,14 +7,16 @@ import axios from "axios";
 import {ArticleSkeleton} from "../../common/Article/ArticleSkeleton";
 
 interface HomeStates {
-    data: any
-    user: any,
-    article: boolean,
-    authors: boolean,
+    data: any;
+    user: any;
+    article: boolean;
+    authors: boolean;
+    famous:boolean;
 }
 
 export class Home extends Component<{}, HomeStates> {
     private static articles: any = [];
+    private static famous: any = [];
     private slider: any;
     private api;
 
@@ -30,11 +32,13 @@ export class Home extends Component<{}, HomeStates> {
             user: loggedUser,
             article: false,
             authors: false,
+            famous:false,
         }
     }
 
     componentDidMount() {
         this.fetchData();
+        this.fetchFamousArticles()
         this.slider = document.getElementById('slider');
     }
 
@@ -62,6 +66,29 @@ export class Home extends Component<{}, HomeStates> {
             } catch (e) {
                 console.log("error");
             }
+        }
+    }
+
+    fetchFamousArticles = async () => {
+        if (Home.famous.length === 0) {
+            try {
+                try {
+                    this.api.get('/articles/famous')
+                        .then((res: { data: any }) => {
+                            const jsonData = res.data;
+                            Home.famous = jsonData
+                            this.setState({famous: true});
+                        }).catch((error: any) => {
+                        console.error('Axios Error:', error)
+                    });
+                } catch (error) {
+                    console.log('Error fetching data: ', error)
+                }
+            } catch (e) {
+                console.log("error");
+            }
+        }else {
+            this.setState({famous: true});
         }
     }
 
@@ -172,15 +199,15 @@ export class Home extends Component<{}, HomeStates> {
                                  className="w-full h-full overflow-y-hidden overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scroll-bar">
 
 
-                                {Home.articles.length > 0 && (
-                                    Home.articles.slice(0, 5).map((article: any) => (
+                                {this.state.famous && (
+                                    Home.famous.slice(0, 5).map((article: any) => (
                                         <div key={article._id} className="inline-block cursor-pointer">
                                             <Article key={article.id} data={article}/>
                                         </div>
                                     ))
                                 )}
 
-                                {Home.articles.length === 0 && (
+                                {!this.state.famous && (
                                     Array.from({length: 4}).map((_, index) => (
                                         <div key={index} className="inline-block cursor-pointer">
                                             <ArticleSkeleton/>
@@ -216,7 +243,7 @@ export class Home extends Component<{}, HomeStates> {
 
 
                             {Home.articles.length > 0 && (
-                                Home.articles.slice(0, 9).map((article: any) => (
+                                Home.articles.slice(0, 9).reverse().map((article: any) => (
                                     <Article key={article._id} data={article}/>
                                 ))
                             )}
@@ -237,7 +264,7 @@ export class Home extends Component<{}, HomeStates> {
                         </div>
                     </div>
 
-                    <div>
+                    {/*<div>
 
                         <hr className=" mt-28"/>
                         <div className="w-full flex justify-between pt-2">
@@ -273,7 +300,7 @@ export class Home extends Component<{}, HomeStates> {
 
                         </div>
 
-                    </div>
+                    </div>*/}
 
                 </div>
             </div>
