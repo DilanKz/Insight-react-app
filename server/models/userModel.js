@@ -27,7 +27,7 @@ const UserModel = mongoose.Schema({
     },
     accountType: {
         type: String,
-        enum: ['regular', 'author', 'requested' ,'banned','rejected'],
+        enum: ['regular', 'author', 'requested' ,'banned','rejected','admin'],
         default: 'regular',
     },
 });
