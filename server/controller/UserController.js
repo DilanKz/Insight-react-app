@@ -103,11 +103,11 @@ const userController = {
     },
 
     updatePassword: async function (req, res, next) {
-        const {email, password} = req.body;
-
+        const {mail, password} = req.body;
+        console.log(mail)
         try {
-            const savedUser = await User.findOne({email: email});
-
+            const savedUser = await User.findOne({email: mail});
+            console.log(savedUser)
             if (savedUser) {
                 const hashedPassword = await bcrypt.hash(password, 10);
 
