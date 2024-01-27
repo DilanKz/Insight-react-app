@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Article} from "../../../common/Article/Article";
 import moment from "moment/moment";
+import axios from "axios";
+import {Link} from "react-router-dom";
 
 
 interface props {
@@ -12,9 +14,12 @@ interface props {
 export class ArticleContainer extends Component<props> {
     private static famousArticles: any = [];
     private static famousArticle: any = '';
+    private api;
 
     constructor(props: props) {
         super(props);
+        this.api = axios.create({baseURL: `http://localhost:4000`});
+
     }
 
     componentDidMount() {
@@ -39,7 +44,14 @@ export class ArticleContainer extends Component<props> {
                         </div>
 
                         <div className="md:w-[40%] w-full h-80 pl-4 pt-4 pr-8 flex flex-col justify-between">
-                            <h2 className="font-serifDisplay text-5xl hover:underline cursor-pointer">{firstArticle.title}</h2>
+                            <Link to="/Article" onClick={() => {
+                                this.setArticleStaticValue(firstArticle);
+                                window.scrollTo(0, 0);
+                            }}>
+                                <h2 className="font-serifDisplay text-5xl hover:underline cursor-pointer"
+                                    onClick={()=>this.updateClickCount(firstArticle._id)}
+                                >{firstArticle.title}</h2>
+                            </Link>
                             <div className="w-full flex justify-between items-end">
 
                                 <div className="w-20 h-20 rounded-full bg-gray-300 border-2 relative"
@@ -71,5 +83,26 @@ export class ArticleContainer extends Component<props> {
 
             </>
         );
+    }
+
+    private setArticleStaticValue(data: any) {
+        //Get the current article and store it in browser local storage
+        const jsonData = JSON.stringify(data);
+        localStorage.setItem('articleData', jsonData);
+        console.log(JSON.parse(jsonData));
+    }
+
+    private updateClickCount(id: string) {
+        try {
+            this.api.put(`articles/clicked/${id}`)
+                .then((res: { data: any }) => {
+
+                    console.log('delete request has been sent to an admin')
+                }).catch((error: any) => {
+                console.error('Error:', error);
+            });
+        } catch (error) {
+            console.log('Error fetching data: ', error)
+        }
     }
 }
