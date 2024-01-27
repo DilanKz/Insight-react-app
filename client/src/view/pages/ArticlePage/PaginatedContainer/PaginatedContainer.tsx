@@ -3,19 +3,32 @@ import axios from "axios";
 import {Article} from "../../../common/Article/Article";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft,faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 interface Props {
     articles:[]
 }
 
-export class PaginatedContainer extends Component<Props> {
+interface States {
+    pageSize: number,
+    currentPage: number,
+    search: boolean,
+    searchText: string,
+}
+
+export class PaginatedContainer extends Component<Props,States> {
+    private api;
 
     constructor(props: Props) {
         super(props);
+        this.api = axios.create({baseURL: `http://localhost:4000`});
         this.state = {
             pageSize: 4,
             currentPage: 1,
+            search: false,
+            searchText: '',
         };
+        this.handleSearchInputOnChange = this.handleSearchInputOnChange.bind(this);
     }
 
     componentDidMount() {
@@ -44,9 +57,31 @@ export class PaginatedContainer extends Component<Props> {
         this.setState({currentPage: newPage});
     };
 
+
+    openSearch = () => {
+        this.setState({
+            search: true
+        });
+    }
+
+    closeSearch = () => {
+        this.setState({
+            search: false
+        });
+    }
+
+    handleSearchInputOnChange(event: { target: { value: any; name: any; } }) {
+        const target = event.target;
+        const value = target.value;
+
+        this.setState({
+            searchText: value
+        });
+    }
+
     render() {
         //@ts-ignore
-        const {pageSize, currentPage} = this.state;
+        const {pageSize, currentPage,search,searchText} = this.state;
         const {articles}=this.props;
         const startIndex = (currentPage - 1) * pageSize;
         const endIndex = startIndex + pageSize;
@@ -54,9 +89,61 @@ export class PaginatedContainer extends Component<Props> {
 
         const totalPages = Math.ceil(articles.length / pageSize);
 
+        const filteredArticles = searchText.trim() === '' ? [] : articles.filter((article: any) =>
+            article.title.toLowerCase().includes(searchText.toLowerCase())
+        );
+
         return (
             <div className="px-16 w-full">
-                <h1 className={"text-gray-800 text-4xl my-10"}>Articles</h1>
+                <div className={"w-screen flex justify-between"}>
+                    <h1 className={"text-gray-800 text-4xl my-10"}>Articles</h1>
+
+                    <form className="md:w-1/3 w-full flex items-center pt-4">
+                        <label htmlFor="simple-search" className="sr-only">Search</label>
+                        <div className=" w-full">
+                            <input
+                                type="text"
+                                id="simple-search"
+                                className={`outline-0 ring-2 ring-tertiary py-4 text-xl rounded-md text-[#27374D] block w-10/12 ps-10 
+                                        ${search ? 'fixed top-20 ring-0 left-0 right-0 m-auto w-2/5 z-[65] drop-shadow-md' : ''}`}
+                                placeholder="Search for articles..."
+                                value={this.state.searchText} required
+                                onClick={this.openSearch}
+                                onChange={this.handleSearchInputOnChange}
+                            />
+
+                        </div>
+
+                        {search && (
+                            <div className={"w-screen h-screen backdrop-blur-md fixed top-0 left-0 z-[60]"}
+                                 onClick={this.closeSearch}
+                            >
+
+                            </div>
+                        )}
+
+                        {search && (
+                            <div
+                                className={`max-h-80 overflow-y-scroll fixed top-[9.2rem] left-0 right-0 m-auto rounded-md z-[70] bg-white ${filteredArticles.length > 0 ? 'p-4' : 'p-0'} w-2/5`}>
+
+                                {filteredArticles.map((article: any) => (
+                                    <div key={article._id}>
+                                        <Link to="/Article" onClick={() => {
+                                            this.setArticleStaticValue(article);
+                                            window.scrollTo(0, 0);
+                                        }}>
+                                            <p className={"hover:border-gray-800 hover:text-gray-800 text-gray-600  " +
+                                                "cursor-pointer text-xl py-4 border-b "}
+                                               onClick={() => this.updateClickCount(article._id)}
+                                            >{article.title}</p>
+
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </form>
+                </div>
                 <div className="">
 
                     <div className="min-h-screen h-max flex justify-evenly flex-wrap">
@@ -114,5 +201,26 @@ export class PaginatedContainer extends Component<Props> {
 
             </div>
         );
+    }
+
+    private setArticleStaticValue(data: any) {
+        //Get the current article and store it in browser local storage
+        const jsonData = JSON.stringify(data);
+        localStorage.setItem('articleData', jsonData);
+        console.log(JSON.parse(jsonData));
+    }
+
+    private updateClickCount(id: string) {
+        try {
+            this.api.put(`articles/clicked/${id}`)
+                .then((res: { data: any }) => {
+
+                    console.log('delete request has been sent to an admin')
+                }).catch((error: any) => {
+                console.error('Error:', error);
+            });
+        } catch (error) {
+            console.log('Error fetching data: ', error)
+        }
     }
 }
