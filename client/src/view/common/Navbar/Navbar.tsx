@@ -68,7 +68,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                             >
                                 Articles
                             </Link>
-                        </li>
+                        </li>{/*
                         <li className="md:mr-24 md:ml-12 ml-8 text-[15px] md:my-0 my-5 flex items-center">
                             <Link
                                 className="text-gray-800 hover:text-gray-500 duration-75 pb-1 hover:border-b-4 border-[#526D82]"
@@ -76,7 +76,7 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                             >
                                 Authors
                             </Link>
-                        </li>
+                        </li>*/}
 
                         {this.state.user == null && (
                             <Link className="" to="/sign">
