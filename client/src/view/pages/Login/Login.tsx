@@ -13,7 +13,9 @@ interface LoginStates {
     forgotMail: string
     forgotOTP: string;
     newPass: string;
-    navigateToHome:boolean
+    otpCode: string;
+    navigateToHome: boolean
+    otpAvailability: boolean
 }
 
 export class Login extends Component<{}, LoginStates> {
@@ -29,7 +31,9 @@ export class Login extends Component<{}, LoginStates> {
             forgotMail: "",
             forgotOTP: "",
             newPass: "",
+            otpCode: "",
             navigateToHome: false,
+            otpAvailability: true,
         }
         this.handleLoginInputOnChange = this.handleLoginInputOnChange.bind(this);
     }
@@ -133,7 +137,8 @@ export class Login extends Component<{}, LoginStates> {
                     <FontAwesomeIcon icon={faHouse}/>
                 </Link>
 
-                <div className={`w-screen h-screen fixed top-0 left-0 justify-center items-center ${isPwClicked ? "flex" : "hidden"}`}>
+                <div
+                    className={`w-screen h-screen fixed top-0 left-0 justify-center items-center ${isPwClicked ? "flex" : "hidden"}`}>
 
                     <div className=" backdrop-blur-sm w-full h-full absolute" onClick={this.togglePwClicked}></div>
 
@@ -153,7 +158,8 @@ export class Login extends Component<{}, LoginStates> {
                                         id="txtEmail" name="forgotMail"
                                         type="email" required
                                         value={this.state.forgotMail}
-                                        onChange={this.handleLoginInputOnChange}/>
+                                        onChange={this.handleLoginInputOnChange}
+                                    />
                                 </div>
                             </div>
 
@@ -170,7 +176,9 @@ export class Login extends Component<{}, LoginStates> {
                                         id="txtOTP" name="forgotOTP"
                                         type="text" required
                                         value={this.state.forgotOTP}
-                                        onChange={this.handleLoginInputOnChange}/>
+                                        onClick={this.getOTP}
+                                        onChange={this.handleLoginInputOnChange}
+                                    />
                                 </div>
                             </div>
 
@@ -229,7 +237,7 @@ export class Login extends Component<{}, LoginStates> {
                     alert("You dont have an account")
                 } else {
                     localStorage.setItem('insightUser', JSON.stringify(jsonData));
-                    CookieParser.setCookies(JSON.stringify(jsonData),'insightUser');
+                    CookieParser.setCookies(JSON.stringify(jsonData), 'insightUser');
                     // window.location.href = '/';
                     this.setState({
                         navigateToHome: true,
@@ -245,19 +253,52 @@ export class Login extends Component<{}, LoginStates> {
 
     }
     private onForgotPassBtnClick = () => {
-        try {
-            this.api.post('/users/reset', {
-                mail: this.state.forgotMail,
-                otp: this.state.forgotOTP,
-                password: this.state.newPass
-            }).then((res: { data: any }) => {
-                const jsonData = res.data;
-                alert(jsonData);
-            }).catch((error: any) => {
-                console.log('Axios Error', error.response.data.message);
-            });
-        } catch (error) {
-            console.error('Error submitting data:', error);
+        if (this.state.otpCode == this.state.forgotOTP) {
+            try {
+                this.api.post('/users/change', {
+                    mail: this.state.forgotMail,
+                    password: this.state.newPass
+                }).then((res: { data: any }) => {
+                    const jsonData = res.data;
+                    alert(jsonData);
+
+                    this.setState({
+                        forgotMail:'',
+                        forgotOTP:'',
+                        newPass:'',
+                        otpCode:'',
+                        isPwClicked:false
+                    })
+
+                }).catch((error: any) => {
+                    console.log('Axios Error', error.response.data.message);
+                });
+            } catch (error) {
+                console.error('Error submitting data:', error);
+            }
+        }else {
+            alert("otp mismatched")
+        }
+    }
+    private getOTP = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (this.state.forgotMail && emailRegex.test(this.state.forgotMail) && !this.state.otpCode ){
+            try {
+                this.api.post('/users/reset', {
+                    email: this.state.forgotMail
+                }).then((res: { data: any }) => {
+                    this.setState({
+                        otpCode: res.data
+                    })
+                }).catch((error: any) => {
+                    console.log('Axios Error', error.response.data.message);
+                });
+            } catch (error) {
+                console.error('Error submitting data:', error);
+            }
+        }else {
+            alert("Email is invalid")
         }
     }
 }
